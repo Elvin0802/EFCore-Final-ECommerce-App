@@ -1,7 +1,9 @@
-﻿using ECommerceApp.Views.Windows;
+﻿using ECommerceApp.ViewModels.ForPages;
+using ECommerceApp.ViewModels.ForWindows;
+using ECommerceApp.Views.Pages;
+using ECommerceApp.Views.Windows;
 using Microsoft.Extensions.Configuration;
 using SimpleInjector;
-using System.Configuration;
 using System.IO;
 using System.Windows;
 
@@ -16,10 +18,20 @@ public partial class App : Application
 	// Start Method of Application.
 	private void OpenMarket(object sender, StartupEventArgs e)
 	{
+		SetConfiguration();
 
+		RegisterOfViews();
+		RegisterOfViewModels();
 
+		var Window = Container!.GetInstance<MainWindowView>();
+		Window.DataContext = Container.GetInstance<MainWindowViewModel>();
 
-		_ = new MainWindow().ShowDialog();
+		var Page = Container!.GetInstance<LoginPageView>();
+		Page.DataContext = Container.GetInstance<LoginPageViewModel>();
+
+		Window.MainContentFrame.Navigate(Page);
+
+		Window.ShowDialog();
 
 
 		//connStr = App.Configuration!.GetConnectionString("DefaultConnection");
@@ -38,24 +50,31 @@ public partial class App : Application
 	}
 	public void RegisterOfViews()
 	{
-	//	Container?.RegisterSingleton<MainWindowView>();
-
 			/**** Windows ****/
+
+		Container?.RegisterSingleton<MainWindowView>();
 
 
 			/**** Pages  ****/
 
+		Container?.RegisterSingleton<LoginPageView>();
+		Container?.RegisterSingleton<RegisterPageView>();
 
 
 	}
 	public void RegisterOfViewModels()
 	{
-		//	Container?.RegisterSingleton<MainWindowViewModel>();
-
 			/**** Windows ****/
+
+		Container?.RegisterSingleton<MainWindowViewModel>();
 
 
 			/**** Pages  ****/
+
+		Container?.RegisterSingleton<LoginPageViewModel>();
+		Container?.RegisterSingleton<RegisterPageViewModel>();
+
+
 	}
 
 }

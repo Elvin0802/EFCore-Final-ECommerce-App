@@ -2,9 +2,9 @@
 
 namespace ECommerceApp.Views.Windows;
 
-public partial class MainWindow : NavigationWindow
+public partial class MainWindowView : NavigationWindow
 {
-	public MainWindow()
+	public MainWindowView()
 	{
 		InitializeComponent();
 	}

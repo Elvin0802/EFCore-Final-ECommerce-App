@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\ConfigFiles\appsettings.json" />
     <None Remove="Resources\Images\App\app.ico" />
   </ItemGroup>
 
@@ -17,13 +16,9 @@
     <Folder Include="Interfaces\Main\" />
     <Folder Include="Interfaces\Repositories\" />
     <Folder Include="Models\Main\" />
-    <Folder Include="Models\EFCore\" />
     <Folder Include="Models\Additional\" />
     <Folder Include="Repositories\" />
     <Folder Include="Services\Main\" />
-    <Folder Include="ViewModels\ForPages\" />
-    <Folder Include="ViewModels\ForWindows\" />
-    <Folder Include="Views\Pages\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,12 +50,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\ConfigFiles\appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\Images\App\app.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\ConfigFiles\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
