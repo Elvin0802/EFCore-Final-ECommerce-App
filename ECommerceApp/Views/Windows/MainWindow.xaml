@@ -1,0 +1,65 @@
+﻿<NavigationWindow x:Class="ECommerceApp.Views.Windows.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:ECommerceApp.Views.Windows"
+		mc:Ignorable="d"
+		
+		Title="E-Commerce App" 
+		Height="600" 
+		Width="1000"
+		ShowsNavigationUI="False"
+		Icon="D:\Visual Programming Codes\C# Codes\Final Projects\ECommerceApp\ECommerceApp\Resources\Images\App\app.ico"
+				  >
+
+	<NavigationWindow.Content>
+
+		<Grid>
+
+			<Grid.ColumnDefinitions>
+
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="5*"/>
+
+			</Grid.ColumnDefinitions>
+
+
+			<Grid.RowDefinitions>
+
+				<RowDefinition Height="1*"/>
+				<RowDefinition Height="5*"/>
+
+			</Grid.RowDefinitions>
+
+			<StackPanel Grid.Row="0" 
+						Grid.Column="0"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center">
+
+				<TextBlock Text="E-Commerce App"
+					   FontSize="18"/>
+
+				<TextBlock Text="v: 1.0"
+					   FontSize="18"/>
+
+			</StackPanel>
+
+			<Frame x:Name="PageNavigationFrame" 
+				   Grid.Column="0" 
+				   Grid.Row="1"/>
+
+			<Frame x:Name="DataFilterFrame"
+				   Grid.Column="1" 
+				   Grid.Row="0"/>
+
+			<Frame x:Name="MainContentFrame"
+				   Grid.Column="1"
+				   Grid.Row="1"/>
+
+
+		</Grid>
+
+	</NavigationWindow.Content>
+
+</NavigationWindow>
