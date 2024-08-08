@@ -3,11 +3,11 @@
 namespace ECommerceApp.Views.Pages
 {
 	/// <summary>
-	/// Interaction logic for RegisterPageView.xaml
+	/// Interaction logic for DashboardPageView.xaml
 	/// </summary>
-	public partial class RegisterPageView : Page
+	public partial class DashboardPageView : Page
 	{
-		public RegisterPageView()
+		public DashboardPageView()
 		{
 			InitializeComponent();
 		}

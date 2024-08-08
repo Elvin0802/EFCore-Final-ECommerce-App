@@ -9,7 +9,7 @@
       Height="auto" 
       Width="auto"
       
-      FontSize="16"
+      FontSize="18"
       
       >
 
@@ -19,28 +19,55 @@
         <StackPanel HorizontalAlignment="Center" 
                     VerticalAlignment="Center">
 
-            <StackPanel Orientation="Horizontal"
-                        Margin="10">
-                
-                <TextBlock Text="Enter Email:"
-                       Background="{DynamicResource ThemeB}"
-                       Foreground="{DynamicResource ThemeF}"
-                        Margin="10"/>
+            <StackPanel Margin="20 10">
 
-                <TextBox Width="200"
-                        Margin="10"/>
+                <TextBox Padding="3"
+                         Height="38"
+                         Margin="10"
+                         Background="{DynamicResource ThemeB}"
+                         Foreground="{DynamicResource ThemeF}"
+                         Text="Enter your text here..."
+                         Name="EmailText"
+                         GotFocus="PlaceholderTextBox_GotFocus"
+                         LostFocus="PlaceholderTextBox_LostFocus"/>
+                
+                <TextBox Padding="3"
+                         Height="38"
+                         Margin="10"
+                         Background="{DynamicResource ThemeB}"
+                         Foreground="{DynamicResource ThemeF}"
+                         Text="Enter your text here..."
+                         Name="PasswordText"
+                         GotFocus="PlaceholderTextBox_GotFocus"
+                         LostFocus="PlaceholderTextBox_LostFocus"/>
+
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal"
-                        Margin="10">
-                
-                <TextBlock Text="Enter Password:"
-                       Background="{DynamicResource ThemeB}"
-                       Foreground="{DynamicResource ThemeF}"
-                        Margin="10"/>
+            <StackPanel Margin="20"
+                        Orientation="Horizontal">
 
-                <TextBox Width="200"
-                        Margin="10"/>
+                <Button Content="Login"
+                        x:Name="RequestLoginButton"
+                        Background="{DynamicResource ThemeB}"
+                        Foreground="{DynamicResource ThemeF}"
+                        FontSize="20"
+                        Margin="10"
+                        Height="40"
+                        Width="180"/>
+                
+                <Button Content="Register"
+                        x:Name="Request1LoginButton"
+                        Background="{DynamicResource ThemeB}"
+                        Foreground="{DynamicResource ThemeF}"
+                        ToolTip="If you don't have an Account, Register now."
+                        FontSize="20"
+                        Margin="10" 
+                        Height="40"
+                        Width="180"/>
+
+
+
+
             </StackPanel>
 
 

@@ -1,4 +1,5 @@
-﻿using ECommerceApp.ViewModels.ForPages;
+﻿using ECommerceApp.Models.EFCore;
+using ECommerceApp.ViewModels.ForPages;
 using ECommerceApp.ViewModels.ForWindows;
 using ECommerceApp.Views.Pages;
 using ECommerceApp.Views.Windows;
@@ -20,16 +21,20 @@ public partial class App : Application
 	{
 		SetConfiguration();
 
+		RegisterOfModels();
 		RegisterOfViews();
 		RegisterOfViewModels();
 
 		var Window = Container!.GetInstance<MainWindowView>();
+		var MainPage = Container!.GetInstance<HomePageView>();
+		var DashboardPage = Container!.GetInstance<DashboardPageView>();
+
 		Window.DataContext = Container.GetInstance<MainWindowViewModel>();
+		MainPage.DataContext = Container.GetInstance<HomePageViewModel>();
+		DashboardPage.DataContext = Container.GetInstance<DashboardPageViewModel>();
 
-		var Page = Container!.GetInstance<LoginPageView>();
-		Page.DataContext = Container.GetInstance<LoginPageViewModel>();
-
-		Window.MainContentFrame.Navigate(Page);
+		Window.MainContentFrame.Navigate(MainPage);
+		Window.PageNavigationFrame.Navigate(DashboardPage);
 
 		Window.ShowDialog();
 
@@ -48,31 +53,43 @@ public partial class App : Application
 					.AddJsonFile("Resources/ConfigFiles/appsettings.json")
 					.Build();
 	}
+	public void RegisterOfModels()
+	{
+		Container?.RegisterSingleton<AppDbContext>();
+	}
 	public void RegisterOfViews()
 	{
-			/**** Windows ****/
+		/**** Windows ****/
 
 		Container?.RegisterSingleton<MainWindowView>();
 
 
-			/**** Pages  ****/
+		/**** Pages  ****/
 
 		Container?.RegisterSingleton<LoginPageView>();
 		Container?.RegisterSingleton<RegisterPageView>();
+		Container?.RegisterSingleton<HomePageView>();
+		Container?.RegisterSingleton<DashboardPageView>();
+		Container?.RegisterSingleton<CartPageView>();
+		Container?.RegisterSingleton<ProfilePageView>();
 
 
 	}
 	public void RegisterOfViewModels()
 	{
-			/**** Windows ****/
+		/**** Windows ****/
 
 		Container?.RegisterSingleton<MainWindowViewModel>();
 
 
-			/**** Pages  ****/
+		/**** Pages  ****/
 
 		Container?.RegisterSingleton<LoginPageViewModel>();
 		Container?.RegisterSingleton<RegisterPageViewModel>();
+		Container?.RegisterSingleton<HomePageViewModel>();
+		Container?.RegisterSingleton<DashboardPageViewModel>();
+		Container?.RegisterSingleton<CartPageViewModel>();
+		Container?.RegisterSingleton<ProfilePageViewModel>();
 
 
 	}

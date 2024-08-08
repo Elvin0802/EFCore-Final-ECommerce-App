@@ -1,0 +1,106 @@
+﻿<Page x:Class="ECommerceApp.Views.Pages.HomePageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ECommerceApp.Views.Pages"
+      mc:Ignorable="d" 
+      
+      Height="auto"
+      Width="auto"
+      x:Name="HomePage"
+      
+      >
+
+    <Grid>
+
+        <ListView x:Name="er"
+                        ItemsSource="{Binding Ps}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+        Header="Product" Width="auto"> 
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <materialDesign:Card
+Width="200">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+      Height="140" />
+                                            <RowDefinition
+      Height="*" />
+                                            <RowDefinition
+      Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Image
+    Source="D:\Visual Programming Codes\C# Codes\Final Projects\ECommerceApp\ECommerceApp\Resources\Images\App\laki.jpg"
+    Height="140"
+    Width="196"
+    Stretch="UniformToFill" />
+                                        <Button
+    Grid.Row="0"
+    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+    HorizontalAlignment="Right"
+    VerticalAlignment="Bottom"
+    Margin="0 0 16 -20">
+                                            <materialDesign:PackIcon
+      Kind="Bike" />
+                                        </Button>
+                                        <StackPanel
+    Grid.Row="1"
+    Margin="8 24 8 0">
+                                            <TextBlock
+      FontWeight="Bold" Text="{Binding Name}">
+                                            </TextBlock>
+                                            <TextBlock
+      TextWrapping="Wrap"
+      VerticalAlignment="Center"
+      Text="A great way to keep fit and forget about the constant grind of IT." />
+                                        </StackPanel>
+                                        <StackPanel
+    HorizontalAlignment="Right"
+    Grid.Row="2"
+    Orientation="Horizontal"
+    Margin="8">
+                                            <Button
+      Style="{StaticResource MaterialDesignToolButton}"
+      Width="30"
+      Padding="2 0 2 0"
+      materialDesign:RippleAssist.IsCentered="True">
+                                                <materialDesign:PackIcon
+        Kind="ShareVariant" />
+                                            </Button>
+                                            <Button
+      Style="{StaticResource MaterialDesignToolButton}"
+      Width="30"
+      Padding="2 0 2 0"
+      materialDesign:RippleAssist.IsCentered="True">
+                                                <materialDesign:PackIcon
+        Kind="Heart" />
+                                            </Button>
+                                            <materialDesign:PopupBox
+      Style="{StaticResource MaterialDesignToolPopupBox}"
+      Padding="2 0 2 0">
+                                                <StackPanel>
+                                                    <Button
+          Content="More" />
+                                                    <Button
+          Content="Options" />
+                                                </StackPanel>
+                                            </materialDesign:PopupBox>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+       
+    </Grid>
+</Page>

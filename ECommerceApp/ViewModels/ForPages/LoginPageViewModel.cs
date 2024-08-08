@@ -2,6 +2,12 @@
 
 public class LoginPageViewModel : BaseViewModel
 {
+	public LoginPageViewModel()
+	{
+
+	}
+
+
 
 
 
