@@ -53,6 +53,10 @@ public class DashboardPageViewModel : BaseViewModel
 		try
 		{
 			App.Container!
+			.GetInstance<CartPageView>().DataContext = App.Container
+														.GetInstance<CartPageViewModel>();
+
+			App.Container
 			.GetInstance<MainWindowView>()
 			.MainContentFrame
 			.Navigate(App.Container.GetInstance<CartPageView>());

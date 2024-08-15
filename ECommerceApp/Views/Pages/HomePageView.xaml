@@ -15,92 +15,105 @@
 
     <Grid>
 
-        <ListView x:Name="er"
-                        ItemsSource="{Binding Ps}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn
-        Header="Product" Width="auto"> 
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <materialDesign:Card
-Width="200">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition
-      Height="140" />
-                                            <RowDefinition
-      Height="*" />
-                                            <RowDefinition
-      Height="Auto" />
-                                        </Grid.RowDefinitions>
-                                        <Image
-    Source="D:\Visual Programming Codes\C# Codes\Final Projects\ECommerceApp\ECommerceApp\Resources\Images\App\laki.jpg"
-    Height="140"
-    Width="196"
-    Stretch="UniformToFill" />
-                                        <Button
-    Grid.Row="0"
-    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-    HorizontalAlignment="Right"
-    VerticalAlignment="Bottom"
-    Margin="0 0 16 -20">
-                                            <materialDesign:PackIcon
-      Kind="Bike" />
-                                        </Button>
-                                        <StackPanel
-    Grid.Row="1"
-    Margin="8 24 8 0">
-                                            <TextBlock
-      FontWeight="Bold" Text="{Binding Name}">
-                                            </TextBlock>
-                                            <TextBlock
-      TextWrapping="Wrap"
-      VerticalAlignment="Center"
-      Text="A great way to keep fit and forget about the constant grind of IT." />
-                                        </StackPanel>
-                                        <StackPanel
-    HorizontalAlignment="Right"
-    Grid.Row="2"
-    Orientation="Horizontal"
-    Margin="8">
-                                            <Button
-      Style="{StaticResource MaterialDesignToolButton}"
-      Width="30"
-      Padding="2 0 2 0"
-      materialDesign:RippleAssist.IsCentered="True">
-                                                <materialDesign:PackIcon
-        Kind="ShareVariant" />
-                                            </Button>
-                                            <Button
-      Style="{StaticResource MaterialDesignToolButton}"
-      Width="30"
-      Padding="2 0 2 0"
-      materialDesign:RippleAssist.IsCentered="True">
-                                                <materialDesign:PackIcon
-        Kind="Heart" />
-                                            </Button>
-                                            <materialDesign:PopupBox
-      Style="{StaticResource MaterialDesignToolPopupBox}"
-      Padding="2 0 2 0">
-                                                <StackPanel>
-                                                    <Button
-          Content="More" />
-                                                    <Button
-          Content="Options" />
-                                                </StackPanel>
-                                            </materialDesign:PopupBox>
-                                        </StackPanel>
-                                    </Grid>
-                                </materialDesign:Card>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <StackPanel>
 
 
-       
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Sorted By:" Background="{DynamicResource ThemeB}" Foreground="{DynamicResource ThemeF}"/>
+                <ComboBox Background="{DynamicResource ThemeB}" Foreground="{DynamicResource ThemeF}"
+					  SelectedIndex="{Binding SortIndex ,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    <ComboBoxItem Content="Name Increasing"/>
+                    <ComboBoxItem Content="Price Increasing"/>
+                    <ComboBoxItem Content="Name Decreasing"/>
+                    <ComboBoxItem Content="Price Decreasing"/>
+                </ComboBox>
+            </StackPanel>
+
+            <ListView x:Name="ProductsView"
+                  Background="{DynamicResource ThemeB}"  
+                  Foreground="{DynamicResource ThemeF}"
+                  ItemsSource="{Binding Ps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="120">
+                            <TextBlock Text="Picture"
+                                   Background="{DynamicResource ThemeB}" 
+                                   Foreground="{DynamicResource ThemeF}"/>
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    <Image Source="{Binding ProfilePicturePath, UpdateSourceTrigger=PropertyChanged}" 
+                                       Width="60" 
+                                       Height="60">
+                                        <Image.ToolTip>
+                                            <ToolTip>
+                                                <Image Source="{Binding ProfilePicturePath, UpdateSourceTrigger=PropertyChanged}"
+                                                   Width="600" 
+                                                   Height="600"/>
+                                            </ToolTip>
+                                        </Image.ToolTip>
+                                    </Image>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="140" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Name" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="140" DisplayMemberBinding="{Binding Price, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Price" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="160" DisplayMemberBinding="{Binding Category, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Category" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="150" >
+                            <TextBlock Text="Rating" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
+
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    <materialDesign:RatingBar
+                                    x:Name="ReadOnlyRatingBar"
+                                    Value="{Binding RatingAvg}"
+                                    IsReadOnly="True" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+
+
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="150" >
+                            <TextBlock Text="Actions" 
+                                       Background="{DynamicResource ThemeB}"  
+                                       Foreground="{DynamicResource ThemeF}"/>
+
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    
+                                    <Button 
+                                        Command="{Binding DataContext.AddCommand, 
+                                        RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        CommandParameter="{Binding}" 
+                                        Margin="10"
+                                        Content="Add to cart"
+                                        Background="{DynamicResource ThemeB}"  
+                                        Foreground="{DynamicResource ThemeF}"/>
+
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+
+
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </StackPanel>
     </Grid>
 </Page>

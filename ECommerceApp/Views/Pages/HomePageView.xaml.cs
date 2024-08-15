@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using ECommerceApp.ViewModels.ForPages;
+using System.Windows.Controls;
 
 namespace ECommerceApp.Views.Pages
 {
@@ -11,5 +12,6 @@ namespace ECommerceApp.Views.Pages
 		{
 			InitializeComponent();
 		}
+
 	}
 }

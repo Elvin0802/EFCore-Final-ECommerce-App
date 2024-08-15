@@ -1,6 +1,7 @@
 ﻿<Page x:Class="ECommerceApp.Views.Pages.CartPageView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ECommerceApp.Views.Pages"
@@ -8,12 +9,103 @@
       
       Height="auto" 
       Width="auto"
+      x:Name="CartPage"
       >
 
     <Grid>
-        <TextBlock Text="Cart Page" 
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="45" Foreground="Blue"/>
+
+        <StackPanel>
+
+            <ListView x:Name="CartView"
+                Background="{DynamicResource ThemeB}"  
+                Foreground="{DynamicResource ThemeF}">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="120">
+                            <TextBlock Text="Picture"
+                                 Background="{DynamicResource ThemeB}" 
+                                 Foreground="{DynamicResource ThemeF}"/>
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    <Image Source="{Binding Product.ProfilePicturePath,
+                                        UpdateSourceTrigger=PropertyChanged}" 
+                                     Width="60" 
+                                     Height="60">
+                                        <Image.ToolTip>
+                                            <ToolTip>
+                                                <Image Source="{Binding Product.ProfilePicturePath,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                                 Width="600" 
+                                                 Height="600"/>
+                                            </ToolTip>
+                                        </Image.ToolTip>
+                                    </Image>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="140" DisplayMemberBinding="{Binding Product.Name, 
+                            UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Name" Background="{DynamicResource ThemeB}" 
+                                       Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="140" DisplayMemberBinding="{Binding Product.Price,
+                            UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Price" Background="{DynamicResource ThemeB}"  
+                                       Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="160" DisplayMemberBinding="{Binding Product.Category, 
+                            UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Category" Background="{DynamicResource ThemeB}" 
+                                       Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="150" >
+                            <TextBlock Text="Rating" Background="{DynamicResource ThemeB}" 
+                                       Foreground="{DynamicResource ThemeF}"/>
+
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    <materialDesign:RatingBar
+                                  x:Name="ReadOnlyRatingBar"
+                                  Value="{Binding Product.RatingAvg}"
+                                  IsReadOnly="True" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+
+
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="150" >
+                            <TextBlock Text="Actions" 
+                                     Background="{DynamicResource ThemeB}"  
+                                     Foreground="{DynamicResource ThemeF}"/>
+
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+
+                                    <Button Click="Button_Click"
+                                          Margin="10"
+                                          Content="Remove from cart"
+                                          Background="{DynamicResource ThemeB}"  
+                                          Foreground="{DynamicResource ThemeF}"/>
+
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+
+
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </StackPanel>
     </Grid>
 </Page>
