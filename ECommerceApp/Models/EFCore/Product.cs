@@ -11,7 +11,7 @@ public class Product : NotifyService
 	public string Description { get; set; }
 	[Required]
 	public decimal Price { get; set; }
-	public int RatingAvg { get=>((int)ProductReviews.Average(pr=> pr.Rating)); }
+	public int RatingAvg { get => ((int)ProductReviews.Average(pr => pr.Rating)); }
 	public int StockQuantity { get; set; }
 	public int CategoryId { get; set; }
 	public DateTime DateAdded { get; set; } = DateTime.UtcNow;
@@ -22,5 +22,6 @@ public class Product : NotifyService
 	public ICollection<ProductReview> ProductReviews { get; set; }
 
 
-	public string ProfilePicturePath { get; set; } = "D:\\Visual Programming Codes\\C# Codes\\Final Projects\\ECommerceApp\\ECommerceApp\\Resources\\Images\\App\\laki.jpg";
+	public string ProfilePicturePath { get; set; } =
+	"D:\\Visual Programming Codes\\C# Codes\\Final Projects\\ECommerceApp\\ECommerceApp\\Resources\\Images\\App\\laki.jpg";
 }

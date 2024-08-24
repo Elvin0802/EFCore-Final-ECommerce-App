@@ -1,5 +1,4 @@
-﻿using ECommerceApp.ViewModels.ForPages;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace ECommerceApp.Views.Pages
 {

@@ -22,7 +22,7 @@
 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="120">
+                        <GridViewColumn Width="100">
                             <TextBlock Text="Picture"
                                  Background="{DynamicResource ThemeB}" 
                                  Foreground="{DynamicResource ThemeF}"/>
@@ -46,13 +46,13 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="140" DisplayMemberBinding="{Binding Product.Name, 
+                        <GridViewColumn Width="120" DisplayMemberBinding="{Binding Product.Name, 
                             UpdateSourceTrigger=PropertyChanged}">
                             <TextBlock Text="Name" Background="{DynamicResource ThemeB}" 
                                        Foreground="{DynamicResource ThemeF}"/>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="140" DisplayMemberBinding="{Binding Product.Price,
+                        <GridViewColumn Width="60" DisplayMemberBinding="{Binding Product.Price,
                             UpdateSourceTrigger=PropertyChanged}">
                             <TextBlock Text="Price" Background="{DynamicResource ThemeB}"  
                                        Foreground="{DynamicResource ThemeF}"/>
@@ -64,7 +64,19 @@
                                        Foreground="{DynamicResource ThemeF}"/>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="150" >
+                        <GridViewColumn Width="160" DisplayMemberBinding="{Binding Quantity, 
+                            UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Quantity" Background="{DynamicResource ThemeB}" 
+                                       Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="160" DisplayMemberBinding="{Binding TotalPrice, 
+                            UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Total Price" Background="{DynamicResource ThemeB}" 
+                                       Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="120" >
                             <TextBlock Text="Rating" Background="{DynamicResource ThemeB}" 
                                        Foreground="{DynamicResource ThemeF}"/>
 
@@ -81,7 +93,7 @@
 
                         </GridViewColumn>
 
-                        <GridViewColumn Width="150" >
+                        <GridViewColumn Width="140" >
                             <TextBlock Text="Actions" 
                                      Background="{DynamicResource ThemeB}"  
                                      Foreground="{DynamicResource ThemeF}"/>

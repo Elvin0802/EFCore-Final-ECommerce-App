@@ -86,7 +86,7 @@
 
                         </GridViewColumn>
 
-                        <GridViewColumn Width="150" >
+                        <GridViewColumn Width="200" >
                             <TextBlock Text="Actions" 
                                        Background="{DynamicResource ThemeB}"  
                                        Foreground="{DynamicResource ThemeF}"/>
@@ -94,16 +94,26 @@
 
                             <GridViewColumn.CellTemplate >
                                 <DataTemplate>
-                                    
-                                    <Button 
-                                        Command="{Binding DataContext.AddCommand, 
-                                        RelativeSource={RelativeSource AncestorType=ListView}}"
-                                        CommandParameter="{Binding}" 
-                                        Margin="10"
-                                        Content="Add to cart"
-                                        Background="{DynamicResource ThemeB}"  
-                                        Foreground="{DynamicResource ThemeF}"/>
 
+                                    <StackPanel>
+
+                                        <Button Command="{Binding DataContext.AddCommand, 
+                                                RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                CommandParameter="{Binding}" 
+                                                Margin="10"
+                                                Content="add to cart"
+                                                Background="{DynamicResource ThemeB}"  
+                                                Foreground="{DynamicResource ThemeF}"/>
+
+                                        <Button Command="{Binding DataContext.ShowCommand,
+                                                RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                CommandParameter="{Binding}" 
+                                                Margin="10"
+                                                Content="show details"
+                                                Background="{DynamicResource ThemeB}"  
+                                                Foreground="{DynamicResource ThemeF}"/>
+
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
 

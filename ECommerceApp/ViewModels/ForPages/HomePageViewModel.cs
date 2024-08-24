@@ -1,7 +1,8 @@
 ﻿using ECommerceApp.Commands;
 using ECommerceApp.Models.EFCore;
+using ECommerceApp.ViewModels.ForWindows;
 using ECommerceApp.Views.Pages;
-using System.Linq;
+using ECommerceApp.Views.Windows;
 using System.Windows;
 using System.Windows.Input;
 
@@ -10,11 +11,12 @@ namespace ECommerceApp.ViewModels.ForPages;
 public class HomePageViewModel : BaseViewModel
 {
 	private User upriv;
-	public User u1 { get=>upriv; set { upriv=value; OnPropertyChanged(); } }
+	public User u1 { get => upriv; set { upriv=value; OnPropertyChanged(); } }
 
 	public HomePageViewModel()
 	{
 		AddCommand = new RelayCommand<object>(AddCommandExecute);
+		ShowCommand = new RelayCommand<object>(ShowCommandExecute);
 
 
 		Category c = new Category() { Name="TestCategory" };
@@ -23,6 +25,41 @@ public class HomePageViewModel : BaseViewModel
 
 		db.Categories.Add(c);
 		Cart cart1 = new Cart() { CartItems=new List<CartItem>() };
+
+
+
+		ProductImage pii1 = new()
+		{
+			ImageUrl = @"D:\Games\bmw1.jpg",
+			IsMainImage = true
+		};
+
+		ProductImage pii2 = new()
+		{
+			ImageUrl = @"D:\Games\bmw2.jpg",
+			IsMainImage = false
+		};
+
+		ProductImage pii3 = new()
+		{
+			ImageUrl = @"D:\Games\bmw3.jpg",
+			IsMainImage = false
+		};
+
+		ProductImage pii4 = new()
+		{
+			ImageUrl = @"D:\Games\bmw5.jpg",
+			IsMainImage = false
+		};
+
+		ProductImage pii5 = new()
+		{
+			ImageUrl = @"D:\Games\bmw8.jpg",
+			IsMainImage = false
+		};
+
+
+
 
 		u1 = new()
 		{
@@ -52,8 +89,8 @@ public class HomePageViewModel : BaseViewModel
 			IsActive=true,
 			Price=12
 		,
-			ProductImages = new List<ProductImage>(),
-			StockQuantity=1000,
+			ProductImages = new List<ProductImage>() { pii1, pii2, pii3, pii4, pii5 },
+			StockQuantity=90,
 			ProductReviews = new List<ProductReview>()
 		};
 		Product p2 = new Product()
@@ -67,7 +104,7 @@ public class HomePageViewModel : BaseViewModel
 			Price=54
 		,
 			ProductImages = new List<ProductImage>(),
-			StockQuantity=500,
+			StockQuantity=85,
 			ProductReviews = new List<ProductReview>()
 		};
 
@@ -106,6 +143,8 @@ public class HomePageViewModel : BaseViewModel
 		p2.ProductReviews.Add(pr2);
 		p2.ProductReviews.Add(pr3);
 
+		db.ProductImages.AddRange(pii1, pii2, pii3, pii4, pii5);
+
 		db.SaveChanges();
 
 		Ps = [p1, p2];
@@ -130,7 +169,7 @@ public class HomePageViewModel : BaseViewModel
 	}
 
 	private List<Product> ps;
-	public List<Product> Ps { get=>ps; set { ps=value;OnPropertyChanged(); } }
+	public List<Product> Ps { get => ps; set { ps=value; OnPropertyChanged(); } }
 
 
 	#region List Sort Function
@@ -148,7 +187,7 @@ public class HomePageViewModel : BaseViewModel
 			else if (index == 3)
 				Ps = new(Ps?.OrderByDescending(p => p.Price)!);
 
-		//	App.Container!.GetInstance<HomePageView>().ProductsView.ItemsSource = Ps;
+			//	App.Container!.GetInstance<HomePageView>().ProductsView.ItemsSource = Ps;
 			App.Container!.GetInstance<HomePageView>().ProductsView.Items.Refresh();
 		}
 		catch
@@ -164,50 +203,54 @@ public class HomePageViewModel : BaseViewModel
 
 	public void AddCommandExecute(object? obj)
 	{
+		Product? SelectedProduct = obj as Product;
 
-	if((obj as Product) is not null)
-		MessageBox.Show(obj.ToString()+ "  Not Null.","Product.");
-	else
-		MessageBox.Show("is Null.","Product.");
-
-		return;
-
-
-		var items = App.Container!
-			.GetInstance<CartPageViewModel>()
-			.Cart!
-			.CartItems.ToList();
-
-		var product = (App.Container!
-					.GetInstance<HomePageView>()
-					.ProductsView.SelectedItem as Product);
-
-		var ci = items.Find(ci => ci.ProductId == product!.ProductId);
+		var ci = u1.Cart.CartItems.ToList().Find(c => c.Product.ProductId == SelectedProduct!.ProductId);
 
 		if (ci is not null)
 		{
-			App.Container!
-			.GetInstance<CartPageViewModel>()
-			.Cart!
-			.CartItems.FirstOrDefault(ci).Quantity++;
+			ci.Quantity++;
+			//u1.Cart.CartItems.FirstOrDefault(ci).Quantity++;
 		}
 		else
 		{
-			App.Container!
-			.GetInstance<CartPageViewModel>()
-			.Cart!
-			.CartItems
+			u1.Cart.CartItems
 			.Add(new CartItem()
 			{
-				Product = product!,
+				Product = SelectedProduct!,
 				Quantity = 1
 			});
 		}
 
-		MessageBox.Show("Product Added.","Adding.");
-
+		MessageBox.Show("Product Added.", "Adding.");
 
 		App.Container!.GetInstance<CartPageView>().CartView.Items.Refresh();
+
+	}
+
+	public ICommand ShowCommand { get; set; }
+
+	public void ShowCommandExecute(object? obj)
+	{
+		try
+		{
+			Product? SelectedProduct = obj as Product;
+
+			var win = new ProductDetailsWindowView();
+
+			var dc = App.Container!.GetInstance<ProductDetailsWindowViewModel>();
+
+			dc.Product = SelectedProduct!;
+
+			win.DataContext = dc;
+
+			win.ShowDialog();
+		}
+		catch
+		{
+			MessageBox.Show("Error in Show Command.");
+		}
+
 
 	}
 }

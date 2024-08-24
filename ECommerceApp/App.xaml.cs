@@ -62,6 +62,7 @@ public partial class App : Application
 		/**** Windows ****/
 
 		Container?.RegisterSingleton<MainWindowView>();
+		Container?.RegisterSingleton<ProductDetailsWindowView>();
 
 
 		/**** Pages  ****/
@@ -80,6 +81,7 @@ public partial class App : Application
 		/**** Windows ****/
 
 		Container?.RegisterSingleton<MainWindowViewModel>();
+		Container?.RegisterSingleton<ProductDetailsWindowViewModel>();
 
 
 		/**** Pages  ****/
