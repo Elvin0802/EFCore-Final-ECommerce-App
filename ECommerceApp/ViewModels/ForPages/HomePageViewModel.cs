@@ -3,6 +3,7 @@ using ECommerceApp.Models.EFCore;
 using ECommerceApp.ViewModels.ForWindows;
 using ECommerceApp.Views.Pages;
 using ECommerceApp.Views.Windows;
+using Microsoft.EntityFrameworkCore;
 using System.Windows;
 using System.Windows.Input;
 
@@ -13,11 +14,22 @@ public class HomePageViewModel : BaseViewModel
 	private User upriv;
 	public User u1 { get => upriv; set { upriv=value; OnPropertyChanged(); } }
 
+	private int _fv;
+	private int _sv;
+
+	public int Min { get => 0; set { OnPropertyChanged(); } } // Min Value of Product Price.
+	public int Max { get => GetMax(); set { OnPropertyChanged(); } } // Max Value of Product Price.
+	public int Avg { get => Max/2; set {OnPropertyChanged(); } } // Avg Value of Product Price.
+	public int Fv { get => _fv; set { _fv=value; OnPropertyChanged(); } } // Value of First Slider.
+	public int Sv { get => _sv; set { _sv=value; OnPropertyChanged(); } } // Value of Second Slider.
+
 	public HomePageViewModel()
 	{
 		AddCommand = new RelayCommand<object>(AddCommandExecute);
 		ShowCommand = new RelayCommand<object>(ShowCommandExecute);
 
+		Fv = Min;
+		Sv = Max;
 
 		Category c = new Category() { Name="TestCategory" };
 
@@ -57,9 +69,6 @@ public class HomePageViewModel : BaseViewModel
 			ImageUrl = @"D:\Games\bmw8.jpg",
 			IsMainImage = false
 		};
-
-
-
 
 		u1 = new()
 		{
@@ -198,6 +207,18 @@ public class HomePageViewModel : BaseViewModel
 
 	#endregion
 
+
+	//	public int GetMax() => (int)App.Container!.GetInstance<AppDbContext>().Products.Min(p => p.Price);
+	public int GetMax() {
+
+		var db = App.Container!.GetInstance<AppDbContext>();
+		db.Products.Load();
+		var t = db.Products.ToList();
+
+		return 100;
+	//	return (int)t.Min(p => p.Price); 
+	
+	}
 
 	public ICommand AddCommand { get; set; }
 

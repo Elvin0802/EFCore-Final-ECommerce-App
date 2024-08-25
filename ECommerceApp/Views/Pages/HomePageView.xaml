@@ -27,6 +27,34 @@
                     <ComboBoxItem Content="Name Decreasing"/>
                     <ComboBoxItem Content="Price Decreasing"/>
                 </ComboBox>
+
+
+                <TextBlock Text="{Binding Fv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                           Width="100"
+                           Margin="5"/>
+
+                <Slider Maximum="{Binding Avg, UpdateSourceTrigger=PropertyChanged}"
+                        Minimum="{Binding Min, UpdateSourceTrigger=PropertyChanged}"
+                        Value="{Binding Fv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Width="120"
+                        Margin="5"
+                        x:Name="FirstSlider"/>
+
+                <Slider Maximum="{Binding Max, UpdateSourceTrigger=PropertyChanged}"
+                        Minimum="{Binding Avg, UpdateSourceTrigger=PropertyChanged}"
+                        Value="{Binding Sv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Width="120"
+                        Margin="5"
+                        x:Name="SecondSlider"/>
+
+                <TextBlock Text="{Binding Sv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                           Width="100"
+                           Margin="5"/>
+                
+
+
+
+
             </StackPanel>
 
             <ListView x:Name="ProductsView"

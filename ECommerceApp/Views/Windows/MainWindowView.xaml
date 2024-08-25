@@ -10,7 +10,6 @@
 		Height="600" 
 		Width="1000"
 		ShowsNavigationUI="False"
-		Icon="D:\Visual Programming Codes\C# Codes\Final Projects\ECommerceApp\ECommerceApp\Resources\Images\App\app.ico"
 				  >
 
 	<NavigationWindow.Content>
