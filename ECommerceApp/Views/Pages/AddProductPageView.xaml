@@ -1,0 +1,60 @@
+﻿<Page x:Class="ECommerceApp.Views.Pages.AddProductPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ECommerceApp.Views.Pages"
+      mc:Ignorable="d" 
+      
+      Height="450" 
+      Width="800"
+      x:Name="AddProductPage">
+
+    <Grid>
+        <!--// Name Description Price StockQuantity CategoryId ProductImages //-->
+
+        <StackPanel Margin="20">
+
+            <TextBox ToolTip="Name"
+                     Margin="10"
+                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <TextBox ToolTip="Description"
+                     Margin="10"
+                     Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <TextBox ToolTip="Price"
+                     Margin="10"
+                     Text="{Binding Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <TextBox ToolTip="StockQuantity"
+                     Margin="10"
+                     Text="{Binding StockQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     />
+
+            <Button ToolTip="Select Image"
+                    Margin="10"
+                    Content="12223"
+                    Height="35"
+                    Command="{Binding TakeProductImageCommand}"
+                    CommandParameter="{Binding ElementName=AddProductPage}"/>
+
+            <TextBlock ToolTip="Product Images Count"
+                       Margin="10"
+                       Text="{Binding ImageCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <ComboBox ToolTip="Category"
+                      Margin="10"/>
+
+
+            <Button Content="Complete."/>
+
+
+
+        </StackPanel>
+        
+        
+        
+        
+    </Grid>
+</Page>

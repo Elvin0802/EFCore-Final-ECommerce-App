@@ -19,6 +19,7 @@
     <Folder Include="Models\Main\" />
     <Folder Include="Models\Additional\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Resources\Images\ForUsers\" />
     <Folder Include="Services\Main\" />
   </ItemGroup>
 

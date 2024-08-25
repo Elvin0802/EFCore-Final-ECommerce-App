@@ -15,8 +15,8 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Margin="20"
-                    Width="210">
+                    Margin="10"
+                    Width="200">
             
             <Button Content="Change Theme"
                     Margin="10"

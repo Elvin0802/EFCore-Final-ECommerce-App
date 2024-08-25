@@ -59,8 +59,8 @@ public abstract class BaseViewModel : NotifyService
 
 				var copyFileName =
 					Directory.GetCurrentDirectory().Split("\\bin")[0]
-					+ "\\Images\\ForUsers\\"
-					+ Guid.NewGuid().ToString().Replace("-", "") + Random.Shared.Next(10000, 1000000000) + originalFileName.Split("\\").Last();
+					+ "\\Resources\\Images\\ForUsers\\"
+					+ Guid.NewGuid().ToString().Replace("-", "") + Random.Shared.Next(100, 100000) + originalFileName.Split("\\").Last();
 
 				using FileStream copyFile = new FileStream(copyFileName, FileMode.Create);
 				originalFile.CopyTo(copyFile);

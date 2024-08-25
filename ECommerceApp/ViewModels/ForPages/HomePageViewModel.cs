@@ -19,7 +19,7 @@ public class HomePageViewModel : BaseViewModel
 
 	public int Min { get => 0; set { OnPropertyChanged(); } } // Min Value of Product Price.
 	public int Max { get => GetMax(); set { OnPropertyChanged(); } } // Max Value of Product Price.
-	public int Avg { get => Max/2; set {OnPropertyChanged(); } } // Avg Value of Product Price.
+	public int Avg { get => Max/2; set { OnPropertyChanged(); } } // Avg Value of Product Price.
 	public int Fv { get => _fv; set { _fv=value; OnPropertyChanged(); } } // Value of First Slider.
 	public int Sv { get => _sv; set { _sv=value; OnPropertyChanged(); } } // Value of Second Slider.
 
@@ -209,15 +209,16 @@ public class HomePageViewModel : BaseViewModel
 
 
 	//	public int GetMax() => (int)App.Container!.GetInstance<AppDbContext>().Products.Min(p => p.Price);
-	public int GetMax() {
+	public int GetMax()
+	{
 
 		var db = App.Container!.GetInstance<AppDbContext>();
 		db.Products.Load();
 		var t = db.Products.ToList();
 
 		return 100;
-	//	return (int)t.Min(p => p.Price); 
-	
+		//	return (int)t.Min(p => p.Price); 
+
 	}
 
 	public ICommand AddCommand { get; set; }
