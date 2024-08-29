@@ -26,15 +26,15 @@ public partial class App : Application
 		RegisterOfViewModels();
 
 		var Window = Container!.GetInstance<MainWindowView>();
-		var MainPage = Container!.GetInstance<AdminPageView>();
-		//var DashboardPage = Container!.GetInstance<DashboardPageView>();
+		var MainPage = Container!.GetInstance<HomePageView>();
+		var DashboardPage = Container!.GetInstance<DashboardPageView>();
 
 		Window.DataContext = Container.GetInstance<MainWindowViewModel>();
-		MainPage.DataContext = Container.GetInstance<AdminPageViewModel>();
-		//DashboardPage.DataContext = Container.GetInstance<DashboardPageViewModel>();
+		MainPage.DataContext = Container.GetInstance<HomePageViewModel>();
+		DashboardPage.DataContext = Container.GetInstance<DashboardPageViewModel>();
 
 		Window.MainContentFrame.Navigate(MainPage);
-		//Window.PageNavigationFrame.Navigate(DashboardPage);
+		Window.PageNavigationFrame.Navigate(DashboardPage);
 
 		Window.ShowDialog();
 

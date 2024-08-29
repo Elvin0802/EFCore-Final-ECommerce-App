@@ -47,7 +47,12 @@
                       Margin="10"/>
 
 
-            <Button Content="Complete."/>
+            <Button Content="Complete."
+                    Width="200"
+                    Height="40"
+                    FontSize="23"
+                    Command="{Binding Com}"
+                    CommandParameter="{Binding ElementName=AddProductPage}"/>
 
 
 

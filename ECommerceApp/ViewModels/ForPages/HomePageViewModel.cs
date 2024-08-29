@@ -20,143 +20,38 @@ public class HomePageViewModel : BaseViewModel
 	public int Min { get => 0; set { OnPropertyChanged(); } } // Min Value of Product Price.
 	public int Max { get => GetMax(); set { OnPropertyChanged(); } } // Max Value of Product Price.
 	public int Avg { get => Max/2; set { OnPropertyChanged(); } } // Avg Value of Product Price.
-	public int Fv { get => _fv; set { _fv=value; OnPropertyChanged(); } } // Value of First Slider.
-	public int Sv { get => _sv; set { _sv=value; OnPropertyChanged(); } } // Value of Second Slider.
+	public int Fv { get => _fv; set { _fv=value; OnPropertyChanged(); SortProducts(4); } } // Value of First Slider.
+	public int Sv { get => _sv; set { _sv=value; OnPropertyChanged(); SortProducts(4); } } // Value of Second Slider.
+
+	public AppDbContext Db { get => App.Container!.GetInstance<AppDbContext>(); } // Main DB Context of App.
 
 	public HomePageViewModel()
 	{
 		AddCommand = new RelayCommand<object>(AddCommandExecute);
 		ShowCommand = new RelayCommand<object>(ShowCommandExecute);
+		Adm = new RelayCommand<object>(AdmExec);
+
+		Db.Products.ElementAt(0).Category = Db.Categories.FirstOrDefault()!;
+		Db.Products.ElementAt(1).Category = Db.Categories.FirstOrDefault()!;
+		Db.Products.ElementAt(2).Category = Db.Categories.FirstOrDefault()!;
+		Db.Products.ElementAt(3).Category = Db.Categories.FirstOrDefault()!;
+
+		u1 = Db.Users.FirstOrDefault()!;
+		u1.Cart = Db.Carts.FirstOrDefault()!;
+		u1.Cart.CartItems = new List<CartItem>();
+
+		Db.Products.ElementAt(0).ProductReviews = [Db.ProductReviews.ElementAt(0), Db.ProductReviews.ElementAt(1)];
+		Db.Products.ElementAt(1).ProductReviews = [Db.ProductReviews.ElementAt(0), Db.ProductReviews.ElementAt(1)];
+		Db.Products.ElementAt(2).ProductReviews = [Db.ProductReviews.ElementAt(0), Db.ProductReviews.ElementAt(1)];
+		Db.Products.ElementAt(3).ProductReviews = [
+			new ProductReview()
+			{  ProductId = 4 , Rating = 5 , Review = "Upper.", User = Db.Users.FirstOrDefault(), UserId=1, DateCreated = DateTime.Now}
+		];
 
 		Fv = Min;
 		Sv = Max;
 
-		Category c = new Category() { Name="TestCategory" };
-
-		var db = App.Container!.GetInstance<AppDbContext>();
-
-		db.Categories.Add(c);
-		Cart cart1 = new Cart() { CartItems=new List<CartItem>() };
-
-
-
-		ProductImage pii1 = new()
-		{
-			ImageUrl = @"D:\Games\bmw1.jpg",
-			IsMainImage = true
-		};
-
-		ProductImage pii2 = new()
-		{
-			ImageUrl = @"D:\Games\bmw2.jpg",
-			IsMainImage = false
-		};
-
-		ProductImage pii3 = new()
-		{
-			ImageUrl = @"D:\Games\bmw3.jpg",
-			IsMainImage = false
-		};
-
-		ProductImage pii4 = new()
-		{
-			ImageUrl = @"D:\Games\bmw5.jpg",
-			IsMainImage = false
-		};
-
-		ProductImage pii5 = new()
-		{
-			ImageUrl = @"D:\Games\bmw8.jpg",
-			IsMainImage = false
-		};
-
-		u1 = new()
-		{
-			Username="user1",
-			Address="i m e34",
-			Cart=cart1,
-			City="Baku",
-			Country="Az",
-			Email="elvincode1517@gmail.com",
-			FirstName="Elvin",
-			LastName="Siracli",
-			Orders = new List<Order>(),
-			PasswordHash="elvin123",
-			PhoneNumber="+994515276567"
-   ,
-			PostalCode="Az-az",
-			State="RandomState"
-		};
-
-		Product p1 = new Product()
-		{
-			Name="testProduct 1111",
-			Description="Test of app1",
-			Category=c,
-			CategoryId=1,
-			DateAdded=DateTime.Now,
-			IsActive=true,
-			Price=12
-		,
-			ProductImages = new List<ProductImage>() { pii1, pii2, pii3, pii4, pii5 },
-			StockQuantity=90,
-			ProductReviews = new List<ProductReview>()
-		};
-		Product p2 = new Product()
-		{
-			Name="testProduct 2222",
-			Description="Test of app2",
-			Category=c,
-			CategoryId=1,
-			DateAdded=DateTime.Now,
-			IsActive=true,
-			Price=54
-		,
-			ProductImages = new List<ProductImage>(),
-			StockQuantity=85,
-			ProductReviews = new List<ProductReview>()
-		};
-
-		ProductReview pr1 = new ProductReview()
-		{
-			Rating=5,
-			Review="Good",
-			User =u1,
-			DateCreated=DateTime.Now,
-		};
-
-		ProductReview pr2 = new ProductReview()
-		{
-			Rating=3,
-			Review="Normal",
-			User =u1,
-			DateCreated=DateTime.Now,
-		};
-
-		ProductReview pr3 = new ProductReview()
-		{
-			Rating=1,
-			Review="Bad",
-			User =u1,
-			DateCreated=DateTime.Now,
-		};
-
-		db.Products.Add(p1);
-		db.Products.Add(p2);
-
-		db.ProductReviews.Add(pr1);
-		db.ProductReviews.Add(pr2);
-		db.ProductReviews.Add(pr3);
-
-		p1.ProductReviews.Add(pr1);
-		p2.ProductReviews.Add(pr2);
-		p2.ProductReviews.Add(pr3);
-
-		db.ProductImages.AddRange(pii1, pii2, pii3, pii4, pii5);
-
-		db.SaveChanges();
-
-		Ps = [p1, p2];
+		Ps = Db.Products.ToList();
 
 	}
 
@@ -187,21 +82,26 @@ public class HomePageViewModel : BaseViewModel
 	{
 		try
 		{
+			//Ps = new(Ps?.OrderBy(p => p.Name)!); // 0
+			//Ps = new(Ps?.OrderBy(p => p.Price)!); // 1
+
 			if (index == 0)
-				Ps = new(Ps?.OrderBy(p => p.Name)!);
+				Ps = Db.Products.OrderBy(p => p.Name).ToList();
 			else if (index == 1)
-				Ps = new(Ps?.OrderBy(p => p.Price)!);
+				Ps = Db.Products.OrderBy(p => p.Price).ToList();
 			else if (index == 2)
-				Ps = new(Ps?.OrderByDescending(p => p.Name)!);
+				Ps = Db.Products.OrderByDescending(p => p.Name).ToList();
 			else if (index == 3)
-				Ps = new(Ps?.OrderByDescending(p => p.Price)!);
+				Ps = Db.Products.OrderByDescending(p => p.Price).ToList();
+			else if (index == 4) // price sorting
+				Ps = Db.Products.Where(product => product.Price >= Fv && product.Price <= Sv).ToList();
 
 			//	App.Container!.GetInstance<HomePageView>().ProductsView.ItemsSource = Ps;
 			App.Container!.GetInstance<HomePageView>().ProductsView.Items.Refresh();
 		}
 		catch
 		{
-			MessageBox.Show("Exams not sorted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			MessageBox.Show("Products not sorted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 	}
 
@@ -216,13 +116,24 @@ public class HomePageViewModel : BaseViewModel
 		db.Products.Load();
 		var t = db.Products.ToList();
 
-		return 100;
-		//	return (int)t.Min(p => p.Price); 
+		return ((int)t.Max(p => p.Price))+1;
 
 	}
 
+	public ICommand Adm { get; set; }
 	public ICommand AddCommand { get; set; }
 
+	public void AdmExec(object? obj)
+	{
+
+		var p = App.Container!.GetInstance<AdminPageView>();
+		p.DataContext = App.Container.GetInstance<AdminPageViewModel>();
+
+		App.Container!
+				.GetInstance<MainWindowView>()
+				.MainContentFrame
+				.Navigate(p);
+	}
 	public void AddCommandExecute(object? obj)
 	{
 		Product? SelectedProduct = obj as Product;

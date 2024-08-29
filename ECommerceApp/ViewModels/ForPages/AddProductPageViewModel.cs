@@ -19,16 +19,16 @@ public class AddProductPageViewModel : BaseViewModel
 		Product = new()
 		{
 			CategoryId=1,
-			Description="Description",
-			Name="Name",
-			Price=99,
+			Description="Description Adding",
+			Name="Name Adding",
+			Price=129,
 			ProductImages=new List<ProductImage>(),
 			ProductReviews = new List<ProductReview>(),
 			StockQuantity=100
 		};
 
 		TakeProductImageCommand = new RelayCommand<object>(TakeProductImageExecute);
-
+		Com = new RelayCommand<object>(ComExecute);
 
 
 
@@ -51,6 +51,29 @@ public class AddProductPageViewModel : BaseViewModel
 			ImageCount = Product.ProductImages.Count;
 		}
 		catch { MessageBox.Show("Error in Take Product Image Command."); }
+	}
+
+	#endregion
+
+	#region Complete
+
+	public ICommand Com { get; set; }
+	private void ComExecute(object? obj)
+	{
+		try
+		{
+			App.Container!.GetInstance<AppDbContext>().Products.Add(Product);
+			Product = new();
+
+			App.Container!.GetInstance<AppDbContext>().SaveChanges();
+
+			MessageBox.Show(
+			App.Container!.GetInstance<AppDbContext>().Products.Count().ToString());
+
+			BackCommandExecute(obj);
+
+		}
+		catch { MessageBox.Show("Error in Complete Command."); }
 	}
 
 	#endregion

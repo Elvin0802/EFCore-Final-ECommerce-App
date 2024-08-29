@@ -83,5 +83,190 @@ public class AppDbContext : DbContext
 			.WithOne(ci => ci.Cart)
 			.HasForeignKey(ci => ci.CartId)
 			.OnDelete(DeleteBehavior.Cascade);
+
+
+		/*
+
+				Adding seed data.	
+
+		*/
+
+		modelBuilder.Entity<Category>().HasData(
+			new Category() { Name = "Seed Category", CategoryId=1, Products = [] }
+		);
+
+		modelBuilder.Entity<User>().HasData(
+		new User()
+		{
+			UserId = 1,
+			Username="user1",
+			Address="i m e34",
+			City="Baku",
+			Country="Az",
+			Email="elvincode1517@gmail.com",
+			FirstName="Elvin",
+			LastName="Siracli",
+			Orders = new List<Order>(),
+			PasswordHash="elvin123",
+			PhoneNumber="+994515276567"
+,
+			PostalCode="Az-az",
+			State="RandomState"
+		}
+	);
+
+		modelBuilder.Entity<Cart>().HasData(
+			new Cart() { CartItems= [], CartId = 1, UserId = 1 }
+		);
+
+
+		/*
+		
+		ProductImages = [new ProductImage(){
+				ImageUrl = @"D:\Games\bmw1.jpg",
+				IsMainImage = true
+			},
+			new ProductImage()
+			{
+				ImageUrl = @"D:\Games\bmw2.jpg",
+				IsMainImage = false
+			},new ProductImage()
+			{
+				ImageUrl = @"D:\Games\bmw3.jpg",
+				IsMainImage = false,
+			}, new ProductImage()
+			{
+				ImageUrl = @"D:\Games\bmw5.jpg",
+				IsMainImage = false
+			}, new ProductImage()
+			{
+				ImageUrl = @"D:\Games\bmw8.jpg",
+				IsMainImage = false
+			}],
+				ProductReviews = [new ProductReview()
+			{
+				Rating=5,
+				Review="Good",
+				UserId =1,
+				DateCreated=DateTime.Now,
+			},
+			new ProductReview()
+			{
+				Rating=4,
+				Review="Normal",
+				UserId =1,
+				DateCreated=DateTime.Now,
+			}]
+		
+		*/
+
+
+		modelBuilder.Entity<Product>().HasData(
+			new Product()
+			{
+				CategoryId = 1,
+				ProductId = 1,
+				Description="Seed Description 1",
+				IsActive=true,
+				Name="Seed Product Name 1",
+				Price = 99.99M,
+				StockQuantity=100,
+				DateAdded=DateTime.Now,
+				ProductImages= [],
+				ProductReviews= []
+
+			},
+			new Product()
+			{
+				CategoryId = 1,
+				ProductId = 2,
+				Description="Seed Desion 222",
+				IsActive=true,
+				Name="Seed2 Name2 222",
+				Price = 230.5M,
+				DateAdded=DateTime.Now,
+				StockQuantity=100,
+				ProductImages= [],
+				ProductReviews= []
+			},
+			new Product()
+			{
+				CategoryId = 1,
+				ProductId = 3,
+				Description="Seed 33333333",
+				IsActive=true,
+				StockQuantity=100,
+				Name="Seed33333333",
+				Price = 75,
+				DateAdded=DateTime.Now,
+				ProductImages= [],
+				ProductReviews= []
+			},
+			new Product()
+			{
+				CategoryId = 1,
+				StockQuantity=100,
+				ProductId = 4,
+				Description="S Product 4444",
+				IsActive=true,
+				Name="Seed4 Name44",
+				Price = 44.9M,
+				DateAdded=DateTime.Now,
+				ProductImages= [],
+				ProductReviews= []
+			}
+		);
+
+
+		modelBuilder.Entity<ProductImage>().HasData(
+			new ProductImage() { ProductImageId = 1, ProductId = 1, ImageUrl = @"D:\Games\bmw1.jpg", IsMainImage = true },
+			new ProductImage() { ProductImageId = 2, ProductId = 1, ImageUrl = @"D:\Games\bmw2.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 3, ProductId = 1, ImageUrl = @"D:\Games\bmw3.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 4, ProductId = 1, ImageUrl = @"D:\Games\bmw5.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 5, ProductId = 1, ImageUrl = @"D:\Games\bmw8.jpg", IsMainImage = false },
+
+
+			new ProductImage() { ProductImageId = 6, ProductId = 2, ImageUrl = @"D:\Games\bmw1.jpg", IsMainImage = true },
+			new ProductImage() { ProductImageId = 7, ProductId = 2, ImageUrl = @"D:\Games\bmw2.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 8, ProductId = 2, ImageUrl = @"D:\Games\bmw3.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 9, ProductId = 2, ImageUrl = @"D:\Games\bmw5.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 10, ProductId =2, ImageUrl = @"D:\Games\bmw8.jpg", IsMainImage = false },
+
+
+			new ProductImage() { ProductImageId = 11, ProductId = 3, ImageUrl = @"D:\Games\bmw1.jpg", IsMainImage = true },
+			new ProductImage() { ProductImageId = 12, ProductId = 3, ImageUrl = @"D:\Games\bmw2.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 13, ProductId = 3, ImageUrl = @"D:\Games\bmw3.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 14, ProductId = 3, ImageUrl = @"D:\Games\bmw5.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 15, ProductId = 3, ImageUrl = @"D:\Games\bmw8.jpg", IsMainImage = false },
+
+
+			new ProductImage() { ProductImageId = 16, ProductId = 4, ImageUrl = @"D:\Games\bmw1.jpg", IsMainImage = true },
+			new ProductImage() { ProductImageId = 17, ProductId = 4, ImageUrl = @"D:\Games\bmw2.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 18, ProductId = 4, ImageUrl = @"D:\Games\bmw3.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 19, ProductId = 4, ImageUrl = @"D:\Games\bmw5.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 20, ProductId = 4, ImageUrl = @"D:\Games\bmw8.jpg", IsMainImage = false }
+		);
+
+
+		modelBuilder.Entity<ProductReview>().HasData(
+			new ProductReview()
+			{
+				ProductReviewId = 1,
+				Rating=1,
+				Review="Very Bad",
+				UserId =1,
+				DateCreated=DateTime.Now,
+				ProductId=1
+			},
+			new ProductReview()
+			{
+				ProductReviewId = 2,
+				Rating=4,
+				Review="Good",
+				UserId =1,
+				DateCreated=DateTime.Now,
+				ProductId=1
+			}
+		);
 	}
 }

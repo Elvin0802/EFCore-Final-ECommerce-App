@@ -15,7 +15,7 @@
         <Grid.ColumnDefinitions>
 
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="4*"/>
 
         </Grid.ColumnDefinitions>
 
@@ -41,18 +41,59 @@
             
             <Button x:Name="b3"
                     Width="100"
-                    Content="Add C"
+                    Content="Home"
                     Margin="10"
-                    Command="{Binding AC}"
+                    Command="{Binding HP}"
                     CommandParameter="{Binding}"
                     Foreground="{DynamicResource  MaterialDesign.Brush.Primary.Foreground}"
                     Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"/>
 
         </StackPanel>
-        
-        <StackPanel Grid.Column="1">
-            
-            
+
+        <StackPanel Grid.Column="1" Background="#F5F5F5">
+
+            <!--<Grid>
+                --><!-- Product Count Card --><!--
+                <Border CornerRadius="15" Background="#2196F3" Margin="20"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="200" Height="150">
+                    --><!-- Applying DropShadowEffect to the Border --><!--
+                    <Border.Effect>
+                        <DropShadowEffect Color="#444" BlurRadius="15" ShadowDepth="4"/>
+                    </Border.Effect>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="Total Products" Foreground="White" FontSize="20" 
+                           FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock x:Name="ProductCountText" Text="0" Foreground="White" 
+                           FontSize="40" FontWeight="Bold" TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>-->
+
+            <Grid>
+                <!-- Card for Product Count -->
+                <Border CornerRadius="10" Background="White" Margin="20"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="250" Height="150">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#888" BlurRadius="10" ShadowDepth="2"/>
+                    </Border.Effect>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <!-- Icon (Product Icon) -->
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8EC;" 
+                           FontSize="40" Foreground="#4CAF50" 
+                           HorizontalAlignment="Center" Margin="0, 0, 0, 10"/>
+                        <!-- Total Product Count -->
+                        <TextBlock x:Name="ProductCountText" Text="0" FontSize="32" 
+                           FontWeight="Bold" Foreground="#333" 
+                           HorizontalAlignment="Center"/>
+                        <!-- Label Text -->
+                        <TextBlock Text="Total Products" FontSize="14" Foreground="#666" 
+                           HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
         </StackPanel>
         
         
