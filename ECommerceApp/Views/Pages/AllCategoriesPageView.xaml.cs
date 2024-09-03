@@ -3,11 +3,11 @@
 namespace ECommerceApp.Views.Pages
 {
 	/// <summary>
-	/// Interaction logic for AddCategoryPageView.xaml
+	/// Interaction logic for AllCategoriesPageView.xaml
 	/// </summary>
-	public partial class AddCategoryPageView : Page
+	public partial class AllCategoriesPageView : Page
 	{
-		public AddCategoryPageView()
+		public AllCategoriesPageView()
 		{
 			InitializeComponent();
 		}

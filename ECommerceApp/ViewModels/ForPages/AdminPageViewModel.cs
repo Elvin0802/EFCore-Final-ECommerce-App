@@ -9,20 +9,20 @@ namespace ECommerceApp.ViewModels.ForPages;
 public class AdminPageViewModel : BaseViewModel
 {
 
-	public ICommand AC { get; set; }
+	public ICommand CategoriesCommand { get; set; }
 	public ICommand HP { get; set; }
 
 	public AdminPageViewModel()
 	{
-		AC = new RelayCommand<object>(aa);
+		CategoriesCommand = new RelayCommand<object>(CategoriesCommandExecute);
 		HP = new RelayCommand<object>(hp);
 		LoadProductCount();
 	}
 
-	public void aa(object? obj)
+	public void CategoriesCommandExecute(object? obj)
 	{
-		var p = App.Container!.GetInstance<AddProductPageView>();
-		p.DataContext = App.Container.GetInstance<AddProductPageViewModel>();
+		var p = App.Container!.GetInstance<AllCategoriesPageView>();
+		p.DataContext = App.Container.GetInstance<AllCategoriesPageViewModel>();
 
 		App.Container!
 				.GetInstance<MainWindowView>()

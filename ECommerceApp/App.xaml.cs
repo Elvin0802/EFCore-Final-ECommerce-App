@@ -75,7 +75,7 @@ public partial class App : Application
 		Container?.RegisterSingleton<ProfilePageView>();
 		Container?.RegisterSingleton<AdminPageView>();
 		Container?.RegisterSingleton<AddProductPageView>();
-		Container?.RegisterSingleton<AddCategoryPageView>();
+		Container?.RegisterSingleton<AllCategoriesPageView>();
 
 
 	}
@@ -97,7 +97,7 @@ public partial class App : Application
 		Container?.RegisterSingleton<ProfilePageViewModel>();
 		Container?.RegisterSingleton<AdminPageViewModel>();
 		Container?.RegisterSingleton<AddProductPageViewModel>();
-		Container?.RegisterSingleton<AddCategoryPageViewModel>();
+		Container?.RegisterSingleton<AllCategoriesPageViewModel>();
 
 
 	}

@@ -23,9 +23,9 @@
 
             <Button x:Name="b1"
                     Width="100"
-                    Content="Add"
+                    Content="Categories"
                     Margin="10"
-                    Command="{Binding AC}"
+                    Command="{Binding CategoriesCommand}"
                     CommandParameter="{Binding ElementName=AdminPage}"
                     Foreground="{DynamicResource  MaterialDesign.Brush.Primary.Foreground}"
                     Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"/>

@@ -6,6 +6,11 @@ public class Category
 	public string Name { get; set; }
 	public ICollection<Product> Products { get; set; }
 
+	public Category() { }
+	public Category(string categoryName)
+	{
+		Name = categoryName;
+	}
+
 	public override string ToString() => Name;
-	public string GetAd() => "GetAd Isledi.";
 }

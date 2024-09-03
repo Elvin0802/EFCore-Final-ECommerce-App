@@ -7,8 +7,6 @@ public class AppDbContext : DbContext
 {
 	public AppDbContext()
 	{
-
-		Database.EnsureDeleted();
 		Database.EnsureCreated();
 	}
 	public DbSet<User> Users { get; set; }
