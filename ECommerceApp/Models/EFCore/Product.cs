@@ -16,12 +16,10 @@ public class Product : NotifyService
 	public int CategoryId { get; set; }
 	public DateTime DateAdded { get; set; } = DateTime.UtcNow;
 	public bool IsActive { get; set; } = true;
+	public string MainImage { get => ProductImages.FirstOrDefault()!.ImageUrl; }
 
 	public Category Category { get; set; }
 	public ICollection<ProductImage> ProductImages { get; set; }
 	public ICollection<ProductReview> ProductReviews { get; set; }
 
-
-	public string ProfilePicturePath { get; set; } =
-	"D:\\Visual Programming Codes\\C# Codes\\Final Projects\\ECommerceApp\\ECommerceApp\\Resources\\Images\\App\\laki.jpg";
 }

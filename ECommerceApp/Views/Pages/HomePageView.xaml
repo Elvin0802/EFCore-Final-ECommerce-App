@@ -172,6 +172,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:additional="clr-namespace:ECommerceApp.Models.Additional"
       xmlns:local="clr-namespace:ECommerceApp.Views.Pages"
       mc:Ignorable="d"
       
@@ -297,28 +298,51 @@
             </ComboBox>
 
             <TextBlock Text="{Binding Fv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="60" TextAlignment="Center"/>
-            <Slider Maximum="{Binding Max, UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Min, UpdateSourceTrigger=PropertyChanged}" Value="{Binding Fv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="150"/>
+            <Slider Maximum="{Binding Max, UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Min, UpdateSourceTrigger=PropertyChanged}" 
+                    Value="{Binding Fv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    Width="120"/>
 
-            <Slider Maximum="{Binding Max, UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Min, UpdateSourceTrigger=PropertyChanged}" Value="{Binding Sv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="150"/>
-            <TextBlock Text="{Binding Sv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="60" TextAlignment="Center"/>
+            <Slider Maximum="{Binding Max, UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Min, UpdateSourceTrigger=PropertyChanged}" 
+                    Value="{Binding Sv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Width="120"/>
+            <TextBlock Text="{Binding Sv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                       Width="60" 
+                       TextAlignment="Center"/>
 
-            <Button Content="Admin" Width="100"
+            <Button Content="Adm" Width="50"
                     Command="{Binding Adm}" CommandParameter="{Binding ElementName=HomePage}"/>
-            
+
+            <TextBox x:Name="CategorieNameTB"
+                     Margin="10 0 0 0"
+                     Width="250"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Padding="3"
+                     additional:TextBoxPlaceholderBehavior.PlaceholderText="Search..."/>
+
         </StackPanel>
 
 
-        <!-- Product List -->
-        <ListView x:Name="ProductsView" Grid.Row="1" ItemsSource="{Binding Ps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="White" BorderBrush="{DynamicResource #FFDDDDDD}" BorderThickness="1">
+        <!-- Products List View -->
+        <ListView x:Name="ProductsView" 
+                  Grid.Row="1"
+                  ItemsSource="{Binding Ps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  Background="White"
+                  BorderBrush="{DynamicResource #FFDDDDDD}" 
+                  BorderThickness="1">
+            
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="120" Header="Picture">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding ProfilePicturePath, UpdateSourceTrigger=PropertyChanged}" Width="60" Height="60">
+                                <Image Source="{Binding MainImage, UpdateSourceTrigger=PropertyChanged}"
+                                       Width="60" 
+                                       Height="60">
                                     <Image.ToolTip>
                                         <ToolTip>
-                                            <Image Source="{Binding ProfilePicturePath, UpdateSourceTrigger=PropertyChanged}" Width="600" Height="600"/>
+                                            <Image Source="{Binding MainImage, UpdateSourceTrigger=PropertyChanged}" 
+                                                   Width="600" 
+                                                   Height="600"/>
                                         </ToolTip>
                                     </Image.ToolTip>
                                 </Image>
@@ -333,7 +357,13 @@
                     <GridViewColumn Width="150" Header="Rating">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <materialDesign:RatingBar Value="{Binding RatingAvg}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Height="26" IsReadOnly="True"/>
+                                <materialDesign:RatingBar Value="{Binding RatingAvg}" 
+                                                          HorizontalAlignment="Left" 
+                                                          VerticalAlignment="Center"
+                                                          Width="140" 
+                                                          Height="26" 
+                                                          IsReadOnly="True"
+                                                          Foreground="{DynamicResource ResourceKey = ThemeF}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

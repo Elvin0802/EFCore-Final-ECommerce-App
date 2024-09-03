@@ -27,7 +27,7 @@ public class AllCategoriesPageViewModel : BaseViewModel
 	{
 		var NewName = App.Container!.GetInstance<AllCategoriesPageView>().CategorieNameTB.Text;
 
-		if (NewName == string.Empty)
+		if (NewName == string.Empty || NewName == "Enter the new categorie name.")
 		{
 			MessageBox.Show("Category name cannot be empty.", "Categorie", MessageBoxButton.OK, MessageBoxImage.Warning);
 			return;

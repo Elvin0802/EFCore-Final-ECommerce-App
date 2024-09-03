@@ -7,6 +7,7 @@ public class AppDbContext : DbContext
 {
 	public AppDbContext()
 	{
+		Database.EnsureDeleted();
 		Database.EnsureCreated();
 	}
 	public DbSet<User> Users { get; set; }
@@ -53,12 +54,14 @@ public class AppDbContext : DbContext
 			.HasForeignKey(oi => oi.OrderId)
 			.OnDelete(DeleteBehavior.Cascade);
 
-		// Configure one-to-many relationship between Product and ProductImages
-		modelBuilder.Entity<Product>()
-			.HasMany(p => p.ProductImages)
-			.WithOne(pi => pi.Product)
-			.HasForeignKey(pi => pi.ProductId)
-			.OnDelete(DeleteBehavior.Cascade);
+		//// Configure one-to-many relationship between Product and ProductImages
+		//modelBuilder.Entity<Product>()
+		//	.HasMany(p => p.ProductImages)
+		//	.WithOne(pi => pi.Product)
+		//	.HasForeignKey(pi => pi.ProductId)
+		//	.OnDelete(DeleteBehavior.Cascade);
+
+		modelBuilder.Entity<ProductImage>().HasOne(pi => pi.Product).WithMany(p => p.ProductImages).HasForeignKey(pi => pi.ProductId).OnDelete(DeleteBehavior.Cascade);
 
 		// Configure one-to-many relationship between Product and ProductReviews
 		modelBuilder.Entity<Product>()
@@ -122,24 +125,23 @@ public class AppDbContext : DbContext
 		
 		ProductImages = [new ProductImage(){
 				ImageUrl = @"D:\Games\bmw1.jpg",
-				IsMainImage = true
-			},
+						},
 			new ProductImage()
 			{
 				ImageUrl = @"D:\Games\bmw2.jpg",
-				IsMainImage = false
+			
 			},new ProductImage()
 			{
 				ImageUrl = @"D:\Games\bmw3.jpg",
-				IsMainImage = false,
+			,
 			}, new ProductImage()
 			{
 				ImageUrl = @"D:\Games\bmw5.jpg",
-				IsMainImage = false
+			
 			}, new ProductImage()
 			{
 				ImageUrl = @"D:\Games\bmw8.jpg",
-				IsMainImage = false
+			
 			}],
 				ProductReviews = [new ProductReview()
 			{
@@ -217,32 +219,32 @@ public class AppDbContext : DbContext
 
 
 		modelBuilder.Entity<ProductImage>().HasData(
-			new ProductImage() { ProductImageId = 1, ProductId = 1, ImageUrl = @"D:\Games\bmw1.jpg", IsMainImage = true },
-			new ProductImage() { ProductImageId = 2, ProductId = 1, ImageUrl = @"D:\Games\bmw2.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 3, ProductId = 1, ImageUrl = @"D:\Games\bmw3.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 4, ProductId = 1, ImageUrl = @"D:\Games\bmw5.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 5, ProductId = 1, ImageUrl = @"D:\Games\bmw8.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 1, ProductId = 1, ImageUrl = @"D:\Games\bmw1.jpg", },
+			new ProductImage() { ProductImageId = 2, ProductId = 1, ImageUrl = @"D:\Games\bmw2.jpg", },
+			new ProductImage() { ProductImageId = 3, ProductId = 1, ImageUrl = @"D:\Games\bmw3.jpg", },
+			new ProductImage() { ProductImageId = 4, ProductId = 1, ImageUrl = @"D:\Games\bmw5.jpg", },
+			new ProductImage() { ProductImageId = 5, ProductId = 1, ImageUrl = @"D:\Games\bmw8.jpg", },
 
 
-			new ProductImage() { ProductImageId = 6, ProductId = 2, ImageUrl = @"D:\Games\bmw1.jpg", IsMainImage = true },
-			new ProductImage() { ProductImageId = 7, ProductId = 2, ImageUrl = @"D:\Games\bmw2.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 8, ProductId = 2, ImageUrl = @"D:\Games\bmw3.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 9, ProductId = 2, ImageUrl = @"D:\Games\bmw5.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 10, ProductId =2, ImageUrl = @"D:\Games\bmw8.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 6, ProductId = 2, ImageUrl = @"D:\Games\bmw1.jpg", },
+			new ProductImage() { ProductImageId = 7, ProductId = 2, ImageUrl = @"D:\Games\bmw2.jpg", },
+			new ProductImage() { ProductImageId = 8, ProductId = 2, ImageUrl = @"D:\Games\bmw3.jpg", },
+			new ProductImage() { ProductImageId = 9, ProductId = 2, ImageUrl = @"D:\Games\bmw5.jpg", },
+			new ProductImage() { ProductImageId = 10, ProductId =2, ImageUrl = @"D:\Games\bmw8.jpg", },
 
 
-			new ProductImage() { ProductImageId = 11, ProductId = 3, ImageUrl = @"D:\Games\bmw1.jpg", IsMainImage = true },
-			new ProductImage() { ProductImageId = 12, ProductId = 3, ImageUrl = @"D:\Games\bmw2.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 13, ProductId = 3, ImageUrl = @"D:\Games\bmw3.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 14, ProductId = 3, ImageUrl = @"D:\Games\bmw5.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 15, ProductId = 3, ImageUrl = @"D:\Games\bmw8.jpg", IsMainImage = false },
+			new ProductImage() { ProductImageId = 11, ProductId = 3, ImageUrl = @"D:\Games\bmw1.jpg", },
+			new ProductImage() { ProductImageId = 12, ProductId = 3, ImageUrl = @"D:\Games\bmw2.jpg", },
+			new ProductImage() { ProductImageId = 13, ProductId = 3, ImageUrl = @"D:\Games\bmw3.jpg", },
+			new ProductImage() { ProductImageId = 14, ProductId = 3, ImageUrl = @"D:\Games\bmw5.jpg", },
+			new ProductImage() { ProductImageId = 15, ProductId = 3, ImageUrl = @"D:\Games\bmw8.jpg", },
 
 
-			new ProductImage() { ProductImageId = 16, ProductId = 4, ImageUrl = @"D:\Games\bmw1.jpg", IsMainImage = true },
-			new ProductImage() { ProductImageId = 17, ProductId = 4, ImageUrl = @"D:\Games\bmw2.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 18, ProductId = 4, ImageUrl = @"D:\Games\bmw3.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 19, ProductId = 4, ImageUrl = @"D:\Games\bmw5.jpg", IsMainImage = false },
-			new ProductImage() { ProductImageId = 20, ProductId = 4, ImageUrl = @"D:\Games\bmw8.jpg", IsMainImage = false }
+			new ProductImage() { ProductImageId = 16, ProductId = 4, ImageUrl = @"D:\Games\bmw1.jpg", },
+			new ProductImage() { ProductImageId = 17, ProductId = 4, ImageUrl = @"D:\Games\bmw2.jpg", },
+			new ProductImage() { ProductImageId = 18, ProductId = 4, ImageUrl = @"D:\Games\bmw3.jpg", },
+			new ProductImage() { ProductImageId = 19, ProductId = 4, ImageUrl = @"D:\Games\bmw5.jpg", },
+			new ProductImage() { ProductImageId = 20, ProductId = 4, ImageUrl = @"D:\Games\bmw8.jpg", }
 		);
 
 

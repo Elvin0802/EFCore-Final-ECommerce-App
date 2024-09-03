@@ -28,9 +28,9 @@
 
             <TextBox x:Name="CategorieNameTB"
                      Margin="10"
-                     Width="200"
+                     Width="270"
                      Padding="3"
-                     additional:TextBoxPlaceholderBehavior.PlaceholderText="Enter the new categorie name"
+                     additional:TextBoxPlaceholderBehavior.PlaceholderText="Enter the new categorie name."
                      />
 
             <Button x:Name="AddNewCBtn"

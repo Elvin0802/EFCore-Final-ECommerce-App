@@ -76,7 +76,7 @@
                                        Foreground="{DynamicResource ThemeF}"/>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="120" >
+                        <GridViewColumn Width="140" >
                             <TextBlock Text="Rating" Background="{DynamicResource ThemeB}" 
                                        Foreground="{DynamicResource ThemeF}"/>
 

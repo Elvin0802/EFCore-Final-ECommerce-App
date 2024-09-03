@@ -16,12 +16,14 @@ public class HomePageViewModel : BaseViewModel
 
 	private int _fv;
 	private int _sv;
+	private string _searchText;
 
 	public int Min { get => 0; set { OnPropertyChanged(); } } // Min Value of Product Price.
 	public int Max { get => GetMax(); set { OnPropertyChanged(); } } // Max Value of Product Price.
 	public int Avg { get => Max/2; set { OnPropertyChanged(); } } // Avg Value of Product Price.
 	public int Fv { get => _fv; set { _fv=value; OnPropertyChanged(); SortProducts(4); } } // Value of First Slider.
 	public int Sv { get => _sv; set { _sv=value; OnPropertyChanged(); SortProducts(4); } } // Value of Second Slider.
+	public string SearchText { get => _searchText; set { _searchText=value; OnPropertyChanged(); SortProducts(5); } } // Value of Search Text Box.
 
 	public AppDbContext Db { get => App.Container!.GetInstance<AppDbContext>(); } // Main DB Context of App.
 
@@ -47,6 +49,14 @@ public class HomePageViewModel : BaseViewModel
 			new ProductReview()
 			{  ProductId = 4 , Rating = 5 , Review = "Upper.", User = Db.Users.FirstOrDefault(), UserId=1, DateCreated = DateTime.Now}
 		];
+
+
+		Db.Products.ElementAt(0).ProductImages = [Db.ProductImages.ElementAt(0), Db.ProductImages.ElementAt(1), Db.ProductImages.ElementAt(2)];
+		Db.Products.ElementAt(1).ProductImages = [Db.ProductImages.ElementAt(0), Db.ProductImages.ElementAt(1), Db.ProductImages.ElementAt(2)];
+		Db.Products.ElementAt(2).ProductImages = [Db.ProductImages.ElementAt(0), Db.ProductImages.ElementAt(1), Db.ProductImages.ElementAt(2)];
+		Db.Products.ElementAt(3).ProductImages = [Db.ProductImages.ElementAt(0), Db.ProductImages.ElementAt(1), Db.ProductImages.ElementAt(2)];
+
+		Db.SaveChanges();
 
 		Fv = Min;
 		Sv = Max;
@@ -95,6 +105,8 @@ public class HomePageViewModel : BaseViewModel
 				Ps = Db.Products.OrderByDescending(p => p.Price).ToList();
 			else if (index == 4) // price sorting
 				Ps = Db.Products.Where(product => product.Price >= Fv && product.Price <= Sv).ToList();
+			else if (index == 5) // product searching
+				Ps = Db.Products.Where(product => product.Name.StartsWith(_searchText)).ToList();
 
 			//	App.Container!.GetInstance<HomePageView>().ProductsView.ItemsSource = Ps;
 			App.Container!.GetInstance<HomePageView>().ProductsView.Items.Refresh();

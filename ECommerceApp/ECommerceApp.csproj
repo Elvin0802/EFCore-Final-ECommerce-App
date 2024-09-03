@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\App\app.ico" />
-    <None Remove="Resources\Images\App\laki.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,9 +54,6 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\App\app.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Images\App\laki.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

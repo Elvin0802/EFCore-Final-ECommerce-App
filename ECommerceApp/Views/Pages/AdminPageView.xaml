@@ -32,9 +32,9 @@
             
             <Button x:Name="b2"
                     Width="100"
-                    Content="Add P"
+                    Content="Products"
                     Margin="10"
-                    Command="{Binding AC}"
+                    Command="{Binding ProductsCommand}"
                     CommandParameter="{Binding}"
                     Foreground="{DynamicResource  MaterialDesign.Brush.Primary.Foreground}"
                     Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"/>
