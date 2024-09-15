@@ -21,9 +21,9 @@ public class HomePageViewModel : BaseViewModel
 	public int Min { get => 0; set { OnPropertyChanged(); } } // Min Value of Product Price.
 	public int Max { get => GetMax(); set { OnPropertyChanged(); } } // Max Value of Product Price.
 	public int Avg { get => Max/2; set { OnPropertyChanged(); } } // Avg Value of Product Price.
-	public int Fv { get => _fv; set { _fv=value; OnPropertyChanged(); SortProducts(4); } } // Value of First Slider.
-	public int Sv { get => _sv; set { _sv=value; OnPropertyChanged(); SortProducts(4); } } // Value of Second Slider.
-	public string SearchText { get => _searchText; set { _searchText=value; OnPropertyChanged(); SortProducts(5); } } // Value of Search Text Box.
+	public int Fv { get => _fv; set { _fv=value; OnPropertyChanged(); SortProducts(0); } } // Value of First Slider.
+	public int Sv { get => _sv; set { _sv=value; OnPropertyChanged(); SortProducts(0); } } // Value of Second Slider.
+	public string SearchText { get => _searchText; set { _searchText=value; OnPropertyChanged(); SortProducts(0); } } // Value of Search Text Box.
 
 	public AppDbContext Db { get => App.Container!.GetInstance<AppDbContext>(); } // Main DB Context of App.
 
@@ -33,33 +33,27 @@ public class HomePageViewModel : BaseViewModel
 		ShowCommand = new RelayCommand<object>(ShowCommandExecute);
 		Adm = new RelayCommand<object>(AdmExec);
 
-		Db.Products.ElementAt(0).Category = Db.Categories.FirstOrDefault()!;
-		Db.Products.ElementAt(1).Category = Db.Categories.FirstOrDefault()!;
-		Db.Products.ElementAt(2).Category = Db.Categories.FirstOrDefault()!;
-		Db.Products.ElementAt(3).Category = Db.Categories.FirstOrDefault()!;
+		u1 = new User()
+		{
+			Address="Address",
+			Cart = new() { CartItems=new List<CartItem>() },
+			Email = "Email",
+			FirstName = "FirstName",
+			LastName = "LastName",
+			Orders = new List<Order>(),
+			PasswordHash = "PasswordHash",
+			PhoneNumber = "PhoneNumber",
+			Role = false,
+			Username = "Username"
+		};
 
-		u1 = Db.Users.FirstOrDefault()!;
-		u1.Cart = Db.Carts.FirstOrDefault()!;
-		u1.Cart.CartItems = new List<CartItem>();
-
-		Db.Products.ElementAt(0).ProductReviews = [Db.ProductReviews.ElementAt(0), Db.ProductReviews.ElementAt(1)];
-		Db.Products.ElementAt(1).ProductReviews = [Db.ProductReviews.ElementAt(0), Db.ProductReviews.ElementAt(1)];
-		Db.Products.ElementAt(2).ProductReviews = [Db.ProductReviews.ElementAt(0), Db.ProductReviews.ElementAt(1)];
-		Db.Products.ElementAt(3).ProductReviews = [
-			new ProductReview()
-			{  ProductId = 4 , Rating = 5 , Review = "Upper.", User = Db.Users.FirstOrDefault(), UserId=1, DateCreated = DateTime.Now}
-		];
-
-
-		Db.Products.ElementAt(0).ProductImages = [Db.ProductImages.ElementAt(0), Db.ProductImages.ElementAt(1), Db.ProductImages.ElementAt(2)];
-		Db.Products.ElementAt(1).ProductImages = [Db.ProductImages.ElementAt(0), Db.ProductImages.ElementAt(1), Db.ProductImages.ElementAt(2)];
-		Db.Products.ElementAt(2).ProductImages = [Db.ProductImages.ElementAt(0), Db.ProductImages.ElementAt(1), Db.ProductImages.ElementAt(2)];
-		Db.Products.ElementAt(3).ProductImages = [Db.ProductImages.ElementAt(0), Db.ProductImages.ElementAt(1), Db.ProductImages.ElementAt(2)];
-
-		Db.SaveChanges();
 
 		Fv = Min;
 		Sv = Max;
+
+		Db.ProductImages.Load();
+		Db.Products.Load();
+		Db.Users.Load();
 
 		Ps = Db.Products.ToList();
 
@@ -95,6 +89,9 @@ public class HomePageViewModel : BaseViewModel
 			//Ps = new(Ps?.OrderBy(p => p.Name)!); // 0
 			//Ps = new(Ps?.OrderBy(p => p.Price)!); // 1
 
+			if (Ps is null)
+				Ps = Db.Products.ToList();
+
 			if (index == 0)
 				Ps = Db.Products.OrderBy(p => p.Name).ToList();
 			else if (index == 1)
@@ -103,10 +100,17 @@ public class HomePageViewModel : BaseViewModel
 				Ps = Db.Products.OrderByDescending(p => p.Name).ToList();
 			else if (index == 3)
 				Ps = Db.Products.OrderByDescending(p => p.Price).ToList();
-			else if (index == 4) // price sorting
-				Ps = Db.Products.Where(product => product.Price >= Fv && product.Price <= Sv).ToList();
-			else if (index == 5) // product searching
-				Ps = Db.Products.Where(product => product.Name.StartsWith(_searchText)).ToList();
+
+			//else if (index == 4) // price sorting
+			//	Ps = Db.Products.Where(product => product.Price >= Fv && product.Price <= Sv).ToList();
+			//else if (index == 5) // product searching
+			//	Ps = Db.Products.Where(product => product.Name.StartsWith(_searchText)).ToList();
+
+			Ps = Ps.Where(product => product.Price >= Fv && product.Price <= Sv).ToList();
+
+			if (_searchText is not null && _searchText != "Search...")
+				Ps = Ps.Where(product => product.Name.Contains(_searchText)).ToList();
+			//Ps = Ps.Where(product => product.Name.StartsWith(_searchText)).ToList();
 
 			//	App.Container!.GetInstance<HomePageView>().ProductsView.ItemsSource = Ps;
 			App.Container!.GetInstance<HomePageView>().ProductsView.Items.Refresh();
@@ -126,9 +130,13 @@ public class HomePageViewModel : BaseViewModel
 
 		var db = App.Container!.GetInstance<AppDbContext>();
 		db.Products.Load();
+
 		var t = db.Products.ToList();
 
-		return ((int)t.Max(p => p.Price))+1;
+		if (t.Count < 1)
+			return 100;
+		else
+			return ((int)t.Max(p => p.Price))+1;
 
 	}
 

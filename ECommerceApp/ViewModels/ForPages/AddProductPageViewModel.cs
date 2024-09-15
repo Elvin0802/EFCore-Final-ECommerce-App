@@ -1,5 +1,7 @@
 ﻿using ECommerceApp.Commands;
+using ECommerceApp.Models.Additional;
 using ECommerceApp.Models.EFCore;
+using ECommerceApp.Views.Pages;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -12,29 +14,24 @@ public class AddProductPageViewModel : BaseViewModel
 	public Product Product { get => _product; set { _product = value; OnPropertyChanged(); } }
 	public int _i;
 	public int ImageCount { get => _i; set { _i =value; OnPropertyChanged(); } }
-	//public int ImageCount { get => Product.ProductImages.Count; }
 
 	public AddProductPageViewModel()
 	{
-		Product = new()
-		{
-			CategoryId=1,
-			Description="Description Adding",
-			Name="Name Adding",
-			Price=129,
-			ProductImages=new List<ProductImage>(),
-			ProductReviews = new List<ProductReview>(),
-			StockQuantity=100
-		};
+		ImageDisplayer = new ProductImageDisplayer();
+
+		NextImageCommand = new RelayCommand<object>(ImageDisplayer.NextImage, ImageDisplayer.CanExecuteImageChange);
+		PreviousImageCommand = new RelayCommand<object>(ImageDisplayer.PreviousImage, ImageDisplayer.CanExecuteImageChange);
 
 		TakeProductImageCommand = new RelayCommand<object>(TakeProductImageExecute);
-		Com = new RelayCommand<object>(ComExecute);
+		CompleteCommand = new RelayCommand<object>(CompleteCommandExecute);
 
-
-
-
-
+		RefreshPage();
 	}
+
+	public ProductImageDisplayer ImageDisplayer { get; set; }
+
+	public ICommand NextImageCommand { get; set; }
+	public ICommand PreviousImageCommand { get; set; }
 
 	#region Take Product Image
 
@@ -43,7 +40,6 @@ public class AddProductPageViewModel : BaseViewModel
 	{
 		try
 		{
-
 			var t = GetImage()!;
 
 			Product!.ProductImages.Add(new() { ImageUrl = t });
@@ -57,23 +53,50 @@ public class AddProductPageViewModel : BaseViewModel
 
 	#region Complete
 
-	public ICommand Com { get; set; }
-	private void ComExecute(object? obj)
+	public ICommand CompleteCommand { get; set; }
+	private void CompleteCommandExecute(object? obj)
 	{
 		try
 		{
-			App.Container!.GetInstance<AppDbContext>().Products.Add(Product);
-			Product = new();
+			var db = App.Container!.GetInstance<AppDbContext>();
 
-			App.Container!.GetInstance<AppDbContext>().SaveChanges();
+			var c = App.Container!.GetInstance<AddProductPageView>().CategoriesCB.SelectedItem as Category;
 
-			MessageBox.Show(
-			App.Container!.GetInstance<AppDbContext>().Products.Count().ToString());
+			Product.Category = c!;
+			Product.CategoryId = c!.CategoryId;
+
+			db.Products.Add(Product);
+
+			db.SaveChanges();
+
+			MessageBox.Show(db.Products.Count().ToString());
+
+			Thread.Sleep(2000);
+
+			RefreshPage();
 
 			BackCommandExecute(obj);
 
 		}
 		catch { MessageBox.Show("Error in Complete Command."); }
+	}
+
+	public void RefreshPage()
+	{
+		Product = new()
+		{
+			Description="",
+			Name="",
+			ProductImages = new List<ProductImage>(),
+			Price=1,
+			StockQuantity=1,
+		};
+
+		App.Container!.GetInstance<AddProductPageView>().CategoriesCB.ItemsSource =
+			App.Container.GetInstance<AppDbContext>().Categories.ToList();
+
+		ImageDisplayer.ResetIndex();
+		ImageDisplayer!.Product = Product;
 	}
 
 	#endregion

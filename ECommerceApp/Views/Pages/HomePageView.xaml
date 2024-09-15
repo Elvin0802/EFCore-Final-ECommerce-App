@@ -1,172 +1,4 @@
-﻿<!--<Page x:Class="ECommerceApp.Views.Pages.HomePageView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ECommerceApp.Views.Pages"
-      mc:Ignorable="d" 
-      
-      Height="auto"
-      Width="auto"
-      x:Name="HomePage"
-      
-      >
-
-    <Grid>
-
-        <StackPanel>
-
-            <StackPanel Orientation="Horizontal"
-                        Margin="10">
-                <Label Content="Sorted By:"
-                       Background="{DynamicResource ThemeB}" 
-                       Foreground="{DynamicResource ThemeF}"
-                       Margin="5"/>
-                
-                <ComboBox Background="{DynamicResource ThemeB}"
-                          Foreground="{DynamicResource ThemeF}"
-                          SelectedIndex="{Binding SortIndex ,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                          Margin="5">
-                    
-                    <ComboBoxItem Content="Name Increasing"/>
-                    <ComboBoxItem Content="Price Increasing"/>
-                    <ComboBoxItem Content="Name Decreasing"/>
-                    <ComboBoxItem Content="Price Decreasing"/>
-                </ComboBox>
-
-
-                <TextBlock Text="{Binding Fv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                           Width="100"
-                           Margin="5"
-                           TextAlignment="Center"/>
-
-                <Slider Maximum="{Binding Max, UpdateSourceTrigger=PropertyChanged}"
-                        Minimum="{Binding Min, UpdateSourceTrigger=PropertyChanged}"
-                        Value="{Binding Fv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        Width="120"
-                        Margin="5"
-                        x:Name="FirstSlider"/>
-
-                <Slider Maximum="{Binding Max, UpdateSourceTrigger=PropertyChanged}"
-                        Minimum="{Binding Min, UpdateSourceTrigger=PropertyChanged}"
-                        Value="{Binding Sv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        Width="120"
-                        Margin="5"
-                        x:Name="SecondSlider"/>
-
-                <TextBlock Text="{Binding Sv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                           Width="100"
-                           Margin="5"
-                           TextAlignment="Center"/>
-                
-
-
-
-
-            </StackPanel>
-
-            <ListView x:Name="ProductsView"
-                  Background="{DynamicResource ThemeB}"  
-                  Foreground="{DynamicResource ThemeF}"
-                  ItemsSource="{Binding Ps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Width="120">
-                            <TextBlock Text="Picture"
-                                   Background="{DynamicResource ThemeB}" 
-                                   Foreground="{DynamicResource ThemeF}"/>
-
-                            <GridViewColumn.CellTemplate >
-                                <DataTemplate>
-                                    <Image Source="{Binding ProfilePicturePath, UpdateSourceTrigger=PropertyChanged}" 
-                                       Width="60" 
-                                       Height="60">
-                                        <Image.ToolTip>
-                                            <ToolTip>
-                                                <Image Source="{Binding ProfilePicturePath, UpdateSourceTrigger=PropertyChanged}"
-                                                   Width="600" 
-                                                   Height="600"/>
-                                            </ToolTip>
-                                        </Image.ToolTip>
-                                    </Image>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-
-                        <GridViewColumn Width="140" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}">
-                            <TextBlock Text="Name" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
-                        </GridViewColumn>
-
-                        <GridViewColumn Width="140" DisplayMemberBinding="{Binding Price, UpdateSourceTrigger=PropertyChanged}">
-                            <TextBlock Text="Price" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
-                        </GridViewColumn>
-
-                        <GridViewColumn Width="160" DisplayMemberBinding="{Binding Category, UpdateSourceTrigger=PropertyChanged}">
-                            <TextBlock Text="Category" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
-                        </GridViewColumn>
-
-                        <GridViewColumn Width="150" >
-                            <TextBlock Text="Rating" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
-
-
-                            <GridViewColumn.CellTemplate >
-                                <DataTemplate>
-                                    <materialDesign:RatingBar
-                                    x:Name="ReadOnlyRatingBar"
-                                    Value="{Binding RatingAvg}"
-                                    IsReadOnly="True" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-
-
-                        </GridViewColumn>
-
-                        <GridViewColumn Width="200" >
-                            <TextBlock Text="Actions" 
-                                       Background="{DynamicResource ThemeB}"  
-                                       Foreground="{DynamicResource ThemeF}"/>
-
-
-                            <GridViewColumn.CellTemplate >
-                                <DataTemplate>
-
-                                    <StackPanel>
-
-                                        <Button Command="{Binding DataContext.AddCommand, 
-                                                RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                CommandParameter="{Binding}" 
-                                                Margin="10"
-                                                Content="add to cart"
-                                                Background="{DynamicResource ThemeB}"  
-                                                Foreground="{DynamicResource ThemeF}"/>
-
-                                        <Button Command="{Binding DataContext.ShowCommand,
-                                                RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                CommandParameter="{Binding}" 
-                                                Margin="10"
-                                                Content="show details"
-                                                Background="{DynamicResource ThemeB}"  
-                                                Foreground="{DynamicResource ThemeF}"/>
-
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-
-
-                        </GridViewColumn>
-
-                    </GridView>
-                </ListView.View>
-            </ListView>
-
-        </StackPanel>
-    </Grid>
-</Page>-->
-
-
-<Page x:Class="ECommerceApp.Views.Pages.HomePageView"
+﻿<Page x:Class="ECommerceApp.Views.Pages.HomePageView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -354,20 +186,7 @@
                     <GridViewColumn Width="180" Header="Price" DisplayMemberBinding="{Binding Price, UpdateSourceTrigger=PropertyChanged}"/>
                     <GridViewColumn Width="180" Header="Category" DisplayMemberBinding="{Binding Category, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <GridViewColumn Width="150" Header="Rating">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <materialDesign:RatingBar Value="{Binding RatingAvg}" 
-                                                          HorizontalAlignment="Left" 
-                                                          VerticalAlignment="Center"
-                                                          Width="140" 
-                                                          Height="26" 
-                                                          IsReadOnly="True"
-                                                          Foreground="{DynamicResource ResourceKey = ThemeF}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
+                  
                     <GridViewColumn Width="200" Header="Actions">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -387,3 +206,169 @@
 </Page>
 
 
+<!--<Page x:Class="ECommerceApp.Views.Pages.HomePageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ECommerceApp.Views.Pages"
+      mc:Ignorable="d" 
+      
+      Height="auto"
+      Width="auto"
+      x:Name="HomePage"
+      
+      >
+
+    <Grid>
+
+        <StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="10">
+                <Label Content="Sorted By:"
+                       Background="{DynamicResource ThemeB}" 
+                       Foreground="{DynamicResource ThemeF}"
+                       Margin="5"/>
+                
+                <ComboBox Background="{DynamicResource ThemeB}"
+                          Foreground="{DynamicResource ThemeF}"
+                          SelectedIndex="{Binding SortIndex ,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                          Margin="5">
+                    
+                    <ComboBoxItem Content="Name Increasing"/>
+                    <ComboBoxItem Content="Price Increasing"/>
+                    <ComboBoxItem Content="Name Decreasing"/>
+                    <ComboBoxItem Content="Price Decreasing"/>
+                </ComboBox>
+
+
+                <TextBlock Text="{Binding Fv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                           Width="100"
+                           Margin="5"
+                           TextAlignment="Center"/>
+
+                <Slider Maximum="{Binding Max, UpdateSourceTrigger=PropertyChanged}"
+                        Minimum="{Binding Min, UpdateSourceTrigger=PropertyChanged}"
+                        Value="{Binding Fv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Width="120"
+                        Margin="5"
+                        x:Name="FirstSlider"/>
+
+                <Slider Maximum="{Binding Max, UpdateSourceTrigger=PropertyChanged}"
+                        Minimum="{Binding Min, UpdateSourceTrigger=PropertyChanged}"
+                        Value="{Binding Sv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Width="120"
+                        Margin="5"
+                        x:Name="SecondSlider"/>
+
+                <TextBlock Text="{Binding Sv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                           Width="100"
+                           Margin="5"
+                           TextAlignment="Center"/>
+                
+
+
+
+
+            </StackPanel>
+
+            <ListView x:Name="ProductsView"
+                  Background="{DynamicResource ThemeB}"  
+                  Foreground="{DynamicResource ThemeF}"
+                  ItemsSource="{Binding Ps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="120">
+                            <TextBlock Text="Picture"
+                                   Background="{DynamicResource ThemeB}" 
+                                   Foreground="{DynamicResource ThemeF}"/>
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    <Image Source="{Binding ProfilePicturePath, UpdateSourceTrigger=PropertyChanged}" 
+                                       Width="60" 
+                                       Height="60">
+                                        <Image.ToolTip>
+                                            <ToolTip>
+                                                <Image Source="{Binding ProfilePicturePath, UpdateSourceTrigger=PropertyChanged}"
+                                                   Width="600" 
+                                                   Height="600"/>
+                                            </ToolTip>
+                                        </Image.ToolTip>
+                                    </Image>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="140" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Name" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="140" DisplayMemberBinding="{Binding Price, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Price" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="160" DisplayMemberBinding="{Binding Category, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Category" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="150" >
+                            <TextBlock Text="Rating" Background="{DynamicResource ThemeB}"  Foreground="{DynamicResource ThemeF}"/>
+
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    <materialDesign:RatingBar
+                                    x:Name="ReadOnlyRatingBar"
+                                    Value="{Binding RatingAvg}"
+                                    IsReadOnly="True" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+
+
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="200" >
+                            <TextBlock Text="Actions" 
+                                       Background="{DynamicResource ThemeB}"  
+                                       Foreground="{DynamicResource ThemeF}"/>
+
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+
+                                    <StackPanel>
+
+                                        <Button Command="{Binding DataContext.AddCommand, 
+                                                RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                CommandParameter="{Binding}" 
+                                                Margin="10"
+                                                Content="add to cart"
+                                                Background="{DynamicResource ThemeB}"  
+                                                Foreground="{DynamicResource ThemeF}"/>
+
+                                        <Button Command="{Binding DataContext.ShowCommand,
+                                                RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                CommandParameter="{Binding}" 
+                                                Margin="10"
+                                                Content="show details"
+                                                Background="{DynamicResource ThemeB}"  
+                                                Foreground="{DynamicResource ThemeF}"/>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+
+
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </StackPanel>
+    </Grid>
+</Page>-->

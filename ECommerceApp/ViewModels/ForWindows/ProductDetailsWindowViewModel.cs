@@ -1,27 +1,13 @@
 ﻿using ECommerceApp.Commands;
+using ECommerceApp.Models.Additional;
 using ECommerceApp.Models.EFCore;
 using System.Windows.Input;
 
 namespace ECommerceApp.ViewModels.ForWindows;
 
-//public class ProductDetailsWindowViewModel : BaseViewModel
-//{
-//	private Product _product;
-
-//	public Product Product { get => _product; set { _product=value; OnPropertyChanged(); } }
-
-//    public ProductDetailsWindowViewModel()
-//    {
-
-//    }
-
-
-//}
-
 public class ProductDetailsWindowViewModel : BaseViewModel
 {
 	private Product? _product;
-	private int _currentImageIndex;
 
 	public Product? Product
 	{
@@ -30,46 +16,27 @@ public class ProductDetailsWindowViewModel : BaseViewModel
 		{
 			_product = value;
 			OnPropertyChanged(nameof(Product));
-			OnPropertyChanged(nameof(CurrentImageUrl));
+			RefreshPage();
 		}
 	}
 
-	public string CurrentImageUrl
-	{
-		get => Product?.ProductImages?.ElementAtOrDefault(_currentImageIndex)?.ImageUrl;
-	}
+	public ProductImageDisplayer ImageDisplayer { get; set; }
 
-	public ICommand NextImageCommand { get; }
-	public ICommand PreviousImageCommand { get; }
+	public ICommand NextImageCommand { get; set; }
+	public ICommand PreviousImageCommand { get; set; }
 
 	public ProductDetailsWindowViewModel()
 	{
-		_currentImageIndex = 0;
+		ImageDisplayer = new ProductImageDisplayer();
 
-		NextImageCommand = new RelayCommand<object>(NextImage, CanExecuteImageChange);
-		PreviousImageCommand = new RelayCommand<object>(PreviousImage, CanExecuteImageChange);
+		RefreshPage();
+
+		NextImageCommand = new RelayCommand<object>(ImageDisplayer.NextImage, ImageDisplayer.CanExecuteImageChange);
+		PreviousImageCommand = new RelayCommand<object>(ImageDisplayer.PreviousImage, ImageDisplayer.CanExecuteImageChange);
 	}
-
-	private void NextImage(object? obj)
+	public void RefreshPage()
 	{
-		if (_currentImageIndex < Product.ProductImages.Count - 1)
-		{
-			_currentImageIndex++;
-			OnPropertyChanged(nameof(CurrentImageUrl));
-		}
-	}
-
-	private void PreviousImage(object? obj)
-	{
-		if (_currentImageIndex > 0)
-		{
-			_currentImageIndex--;
-			OnPropertyChanged(nameof(CurrentImageUrl));
-		}
-	}
-
-	private bool CanExecuteImageChange(object? obj)
-	{
-		return Product?.ProductImages?.Count > 1;
+		ImageDisplayer.ResetIndex();
+		ImageDisplayer!.Product = Product;
 	}
 }

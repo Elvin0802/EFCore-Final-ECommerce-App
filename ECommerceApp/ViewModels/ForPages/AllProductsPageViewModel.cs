@@ -20,7 +20,11 @@ public class AllProductsPageViewModel : BaseViewModel
 	{
 
 		var p = App.Container!.GetInstance<AddProductPageView>();
-		p.DataContext = App.Container.GetInstance<AddProductPageViewModel>();
+
+		var vm = App.Container.GetInstance<AddProductPageViewModel>();
+		vm.RefreshPage();
+
+		p.DataContext = vm;
 
 		App.Container!
 				.GetInstance<MainWindowView>()
