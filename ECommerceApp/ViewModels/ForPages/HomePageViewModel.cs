@@ -33,19 +33,23 @@ public class HomePageViewModel : BaseViewModel
 		ShowCommand = new RelayCommand<object>(ShowCommandExecute);
 		Adm = new RelayCommand<object>(AdmExec);
 
-		u1 = new User()
-		{
-			Address="Address",
-			Cart = new() { CartItems=new List<CartItem>() },
-			Email = "Email",
-			FirstName = "FirstName",
-			LastName = "LastName",
-			Orders = new List<Order>(),
-			PasswordHash = "PasswordHash",
-			PhoneNumber = "PhoneNumber",
-			Role = false,
-			Username = "Username"
-		};
+		BackCommand = new RelayCommand<object>(BackCommandExecute);
+		CartPageCommand = new RelayCommand<object>(CartPageCommandExecute);
+		ProfilePageCommand = new RelayCommand<object>(ProfilePageCommandExecute);
+
+		//u1 = new User()
+		//{
+		//	Address="Address",
+		//	Cart = new() { CartItems=new List<CartItem>() },
+		//	Email = "Email",
+		//	FirstName = "FirstName",
+		//	LastName = "LastName",
+		//	Orders = new List<Order>(),
+		//	PasswordHash = "PasswordHash",
+		//	PhoneNumber = "PhoneNumber",
+		//	Role = false,
+		//	Username = "Username"
+		//};
 
 
 		Fv = Min;
@@ -139,6 +143,51 @@ public class HomePageViewModel : BaseViewModel
 			return ((int)t.Max(p => p.Price))+1;
 
 	}
+
+	#region Cart Page Command
+
+	public ICommand CartPageCommand { get; set; }
+	public void CartPageCommandExecute(object? obj)
+	{
+		try
+		{
+			var cart = App.Container!.GetInstance<CartPageView>();
+
+			var vm = App.Container.GetInstance<CartPageViewModel>();
+			vm.FirstLoad();
+
+			cart.DataContext = vm;
+
+			App.Container
+			.GetInstance<MainWindowView>()
+			.MainContentFrame
+			.Navigate(cart);
+		}
+		catch
+		{
+			MessageBox.Show("Error in Cart Page Command", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+	}
+	#endregion
+
+	#region Profile Page Command
+
+	public ICommand ProfilePageCommand { get; set; }
+	public void ProfilePageCommandExecute(object? obj)
+	{
+		try
+		{
+			App.Container!
+			.GetInstance<MainWindowView>()
+			.MainContentFrame
+			.Navigate(App.Container.GetInstance<ProfilePageView>());
+		}
+		catch
+		{
+			MessageBox.Show("Error in Profile Page Command", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+	}
+	#endregion
 
 	public ICommand Adm { get; set; }
 	public ICommand AddCommand { get; set; }

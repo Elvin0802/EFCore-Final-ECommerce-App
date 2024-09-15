@@ -3,6 +3,7 @@ using ECommerceApp.ViewModels.ForPages;
 using ECommerceApp.ViewModels.ForWindows;
 using ECommerceApp.Views.Pages;
 using ECommerceApp.Views.Windows;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimpleInjector;
 using System.IO;
@@ -26,15 +27,14 @@ public partial class App : Application
 		RegisterOfViewModels();
 
 		var Window = Container!.GetInstance<MainWindowView>();
-		var MainPage = Container!.GetInstance<HomePageView>();
-		var DashboardPage = Container!.GetInstance<DashboardPageView>();
+		var MainPage = Container!.GetInstance<LoginPageView>();
 
 		Window.DataContext = Container.GetInstance<MainWindowViewModel>();
-		MainPage.DataContext = Container.GetInstance<HomePageViewModel>();
-		DashboardPage.DataContext = Container.GetInstance<DashboardPageViewModel>();
+		MainPage.DataContext = Container.GetInstance<LoginPageViewModel>();
 
 		Window.MainContentFrame.Navigate(MainPage);
-		Window.PageNavigationFrame.Navigate(DashboardPage);
+
+		RefreshAppDb();
 
 		Window.ShowDialog();
 
@@ -70,7 +70,6 @@ public partial class App : Application
 		Container?.RegisterSingleton<LoginPageView>();
 		Container?.RegisterSingleton<RegisterPageView>();
 		Container?.RegisterSingleton<HomePageView>();
-		Container?.RegisterSingleton<DashboardPageView>();
 		Container?.RegisterSingleton<CartPageView>();
 		Container?.RegisterSingleton<ProfilePageView>();
 		Container?.RegisterSingleton<AdminPageView>();
@@ -93,7 +92,6 @@ public partial class App : Application
 		Container?.RegisterSingleton<LoginPageViewModel>();
 		Container?.RegisterSingleton<RegisterPageViewModel>();
 		Container?.RegisterSingleton<HomePageViewModel>();
-		Container?.RegisterSingleton<DashboardPageViewModel>();
 		Container?.RegisterSingleton<CartPageViewModel>();
 		Container?.RegisterSingleton<ProfilePageViewModel>();
 		Container?.RegisterSingleton<AdminPageViewModel>();
@@ -101,6 +99,27 @@ public partial class App : Application
 		Container?.RegisterSingleton<AddProductPageViewModel>();
 		Container?.RegisterSingleton<AllCategoriesPageViewModel>();
 
+
+	}
+
+	public void RefreshAppDb()
+	{
+		var db = Container!.GetInstance<AppDbContext>();
+
+		db.Users.Load();
+		db.Products.Load();
+		db.ProductImages.Load();
+		db.Categories.Load();
+		db.Carts.Load();
+		db.CartItems.Load();
+		db.Orders.Load();
+		db.OrderItems.Load();
+		db.Payments.Load();
+
+		db.SaveChanges();
+
+		Container!.GetInstance<HomePageViewModel>().Ps = db.Products.ToList();
+		Container!.GetInstance<AllProductsPageViewModel>().Ps = db.Products.ToList();
 
 	}
 

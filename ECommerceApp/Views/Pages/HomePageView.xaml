@@ -153,55 +153,87 @@
 
         </StackPanel>
 
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center"
+             VerticalAlignment="Center"
+             Margin="10"
+             Width="150">
 
-        <!-- Products List View -->
-        <ListView x:Name="ProductsView" 
-                  Grid.Row="1"
-                  ItemsSource="{Binding Ps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                  Background="White"
-                  BorderBrush="{DynamicResource #FFDDDDDD}" 
-                  BorderThickness="1">
-            
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="120" Header="Picture">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding MainImage, UpdateSourceTrigger=PropertyChanged}"
-                                       Width="60" 
-                                       Height="60">
-                                    <Image.ToolTip>
-                                        <ToolTip>
-                                            <Image Source="{Binding MainImage, UpdateSourceTrigger=PropertyChanged}" 
-                                                   Width="600" 
-                                                   Height="600"/>
-                                        </ToolTip>
-                                    </Image.ToolTip>
-                                </Image>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                <Button Content="Profile"
+             Foreground="{DynamicResource ThemeF}"
+             Background="{DynamicResource ThemeB}"
+             Command="{Binding ProfilePageCommand}" 
+             CommandParameter="{Binding ElementName=DashboardPage}"
+             Margin="10"/>
 
-                    <GridViewColumn Width="180" Header="Name" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                    <GridViewColumn Width="180" Header="Price" DisplayMemberBinding="{Binding Price, UpdateSourceTrigger=PropertyChanged}"/>
-                    <GridViewColumn Width="180" Header="Category" DisplayMemberBinding="{Binding Category, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Cart"
+             Margin="10"
+             Foreground="{DynamicResource ThemeF}"
+             Background="{DynamicResource ThemeB}"
+             Command="{Binding CartPageCommand}" 
+             CommandParameter="{Binding ElementName=DashboardPage}"/>
 
-                  
-                    <GridViewColumn Width="200" Header="Actions">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Command="{Binding DataContext.AddCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" Content="Add to Cart"
-                                            Foreground="{DynamicResource MaterialDesign.Brush.Primary.Light.Foreground}"/>
-                                    <Button Command="{Binding DataContext.ShowCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" Content="Show Details"
-                                            Foreground="{DynamicResource MaterialDesign.Brush.Primary.Light.Foreground}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                <Button Content="Back"
+             Margin="10"
+             Foreground="{DynamicResource ThemeF}"
+             Background="{DynamicResource ThemeB}"
+             Command="{Binding BackCommand}" 
+             CommandParameter="{Binding ElementName=DashboardPage}"/>
+
+            </StackPanel>
+
+            <!-- Products List View -->
+            <ListView x:Name="ProductsView" 
+           ItemsSource="{Binding Ps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+           Background="White"
+           BorderBrush="{DynamicResource #FFDDDDDD}" 
+           BorderThickness="1">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="120" Header="Picture">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding MainImage, UpdateSourceTrigger=PropertyChanged}"
+                                Width="60" 
+                                Height="60">
+                                        <Image.ToolTip>
+                                            <ToolTip>
+                                                <Image Source="{Binding MainImage, UpdateSourceTrigger=PropertyChanged}" 
+                                            Width="600" 
+                                            Height="600"/>
+                                            </ToolTip>
+                                        </Image.ToolTip>
+                                    </Image>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="180" Header="Name" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <GridViewColumn Width="180" Header="Price" DisplayMemberBinding="{Binding Price, UpdateSourceTrigger=PropertyChanged}"/>
+                        <GridViewColumn Width="180" Header="Category" DisplayMemberBinding="{Binding Category, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                        <GridViewColumn Width="200" Header="Actions">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Command="{Binding DataContext.AddCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" Content="Add to Cart"
+                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary.Light.Foreground}"/>
+                                        <Button Command="{Binding DataContext.ShowCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" Content="Show Details"
+                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary.Light.Foreground}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </StackPanel>
+
+
     </Grid>
 </Page>
 

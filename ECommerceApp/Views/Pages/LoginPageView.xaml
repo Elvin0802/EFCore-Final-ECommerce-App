@@ -8,7 +8,7 @@
       
       Height="auto" 
       Width="auto"
-      
+      x:Name="LoginPage"
       FontSize="18"
       
       >
@@ -50,6 +50,8 @@
                         x:Name="RequestLoginButton"
                         Background="{DynamicResource ThemeB}"
                         Foreground="{DynamicResource ThemeF}"
+                        Command="{Binding LoginCommand}"
+                        CommandParameter="{Binding ElementName=LoginPage}"
                         FontSize="20"
                         Margin="10"
                         Height="40"
@@ -59,6 +61,8 @@
                         x:Name="Request1LoginButton"
                         Background="{DynamicResource ThemeB}"
                         Foreground="{DynamicResource ThemeF}"
+                        Command="{Binding RegisterCommand}"
+                        CommandParameter="{Binding ElementName=LoginPage}"
                         ToolTip="If you don't have an Account, Register now."
                         FontSize="20"
                         Margin="10" 

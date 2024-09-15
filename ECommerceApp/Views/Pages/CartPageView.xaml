@@ -15,8 +15,15 @@
     <Grid>
 
         <StackPanel>
+            <Button Content="Back"
+                    Width="200"
+                    FontSize="17"
+                    Margin="10"
+                    Command="{Binding BackCommand}"
+                    CommandParameter="{Binding ElementName=CartPage}"/>
 
             <ListView x:Name="CartView"
+                      Margin="30"
                 Background="{DynamicResource ThemeB}"  
                 Foreground="{DynamicResource ThemeF}">
 

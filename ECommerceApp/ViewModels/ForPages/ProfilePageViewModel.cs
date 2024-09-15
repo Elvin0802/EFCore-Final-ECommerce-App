@@ -2,4 +2,10 @@
 
 public class ProfilePageViewModel : BaseViewModel
 {
+
+
+
+
+
+
 }

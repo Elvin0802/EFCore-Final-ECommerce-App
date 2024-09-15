@@ -1,4 +1,4 @@
-﻿<Page x:Class="ECommerceApp.Views.Pages.RegisterPageView"
+﻿<!--<Page x:Class="ECommerceApp.Views.Pages.RegisterPageView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,11 +6,119 @@
       xmlns:local="clr-namespace:ECommerceApp.Views.Pages"
       mc:Ignorable="d" 
       
-      Height="450" 
-      Width="800"
+      Height="auto" 
+      Width="auto"
       x:Name="RegisterPage">
 
     <Grid>
         
+    </Grid>
+</Page>-->
+
+
+
+<Page x:Class="ECommerceApp.Views.Pages.RegisterPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ECommerceApp.Views.Pages"
+      mc:Ignorable="d"
+      Background="#F4F4F9"
+      
+         Height="auto" 
+            Width="auto"
+            x:Name="RegisterPage">
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- First Row: Big "Register" Text in center -->
+        <TextBlock Text="Register" FontSize="30" FontWeight="Bold" Foreground="#333" 
+                   HorizontalAlignment="Center" Grid.Row="0" Margin="0,0,0,20" />
+
+        <!-- Second Row: Name, Surname, Address -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Margin="20,0,0,10" >
+            <StackPanel>
+                <TextBlock Text="First Name" FontSize="14" Foreground="#555" />
+                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5"
+                         Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Last Name" FontSize="14" Foreground="#555" />
+                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5"
+                         Text="{Binding User.LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Address" FontSize="14" Foreground="#555" />
+                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5"
+                         Text="{Binding User.Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Third Row: Username, Email, Phone Number -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="0,0,0,10" >
+            <StackPanel>
+                <TextBlock Text="Username" FontSize="14" Foreground="#555" />
+                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5" 
+                         Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Email" FontSize="14" Foreground="#555" />
+                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5"
+                         Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Phone Number" FontSize="14" Foreground="#555" />
+                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5" 
+                         Text="{Binding User.PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Fourth Row: Password, RePassword, Email Auth Code -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3" Margin="0,0,0,20" >
+            <StackPanel>
+                <TextBlock Text="Password" FontSize="14" Foreground="#555" />
+                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5" 
+                             Text="{Binding User.PasswordHash, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Re-enter Password" FontSize="14" Foreground="#555" />
+                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5" 
+                         Text="{Binding User.PasswordHash, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Email Auth Code" FontSize="14" Foreground="#555" />
+                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5"
+                         Text="{Binding AuthCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"  Grid.Row="4" >
+        <!-- Fifth Row: Big Register Button in center -->
+        <Button Content="Back" Width="180" Height="45" Background="#007ACC" Foreground="White" FontSize="20"
+                FontWeight="Bold" HorizontalAlignment="Center" BorderThickness="0"  
+                Grid.Row="4" Margin="30 5 5 5"
+                Command="{Binding BackCommand}"/>
+        
+        <!-- Fifth Row: Big Register Button in center -->
+        <Button Content="Register" Width="180" Height="45" Background="#007ACC" Foreground="White" FontSize="20"
+                FontWeight="Bold" HorizontalAlignment="Center" BorderThickness="0"  
+                Grid.Row="4" Margin="5"
+                Command="{Binding RegisterCommand}"/>
+            
+        <!-- Fifth Row: Big Register Button in center -->
+        <Button Content="Verify Email" Width="180" Height="45" Background="#007ACC" Foreground="White" FontSize="20"
+                FontWeight="Bold" HorizontalAlignment="Center" BorderThickness="0"  
+                Grid.Row="4" Margin="5"
+                Command="{Binding VerifyEmailCommand}"/>
+            
+        </StackPanel>
     </Grid>
 </Page>

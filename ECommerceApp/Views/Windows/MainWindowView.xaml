@@ -9,27 +9,13 @@
 		Title="E-Commerce App" 
 		Height="800" 
 		Width="1200"
-		ShowsNavigationUI="False"
-				  >
+		ShowsNavigationUI="False">
 
 	<NavigationWindow.Content>
 
 		<Grid>
 
-			<Grid.ColumnDefinitions>
-
-				<ColumnDefinition Width="1*"/>
-				<ColumnDefinition Width="5*"/>
-
-			</Grid.ColumnDefinitions>
-
-
-			<Frame x:Name="PageNavigationFrame" 
-				   Grid.Column="0"/>
-
-			<Frame x:Name="MainContentFrame"
-				   Grid.Column="1"/>
-
+			<Frame x:Name="MainContentFrame"/>
 
 		</Grid>
 

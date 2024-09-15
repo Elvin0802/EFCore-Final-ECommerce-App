@@ -153,16 +153,27 @@
 
         <StackPanel Grid.Row="1"
                     VerticalAlignment="Center"
+                    Orientation="Horizontal"
                     >
 
             <Button x:Name="AddProductBtn"
                     Content="Add New Product"
-                    Margin="5 5 655 5"
+                    Margin="65 5"
                     Background="Beige"
                     Foreground="DarkGreen"
                     Width="170"
                     Height="30"
                     Command="{Binding AddNewProductCommand}"/>
+            
+            <Button 
+                    Content="Back"
+                    Margin="20 5"
+                    Background="Beige"
+                    Foreground="DarkGreen"
+                    Width="170"
+                    Height="30"
+                    Command="{Binding BackCommand}"
+                CommandParameter="{Binding ElementName=AllProductsPage}"/>
             
 
         </StackPanel>
