@@ -11,16 +11,19 @@ public class CartPageViewModel : BaseViewModel
 	public CartPageViewModel()
 	{
 		BackCommand = new RelayCommand<object>(BackCommandExecute);
-		FirstLoad();
 	}
 
-	public void FirstLoad()
+	public void Load()
 	{
 		try
 		{
-			Cart = App.Container!.GetInstance<HomePageViewModel>().u1.Cart as Cart;
+			Cart = App.Container!.GetInstance<ProfilePageViewModel>().User.Cart;
 
-			App.Container!.GetInstance<CartPageView>().CartView.ItemsSource = Cart.CartItems;
+			Cart.CartItems = Cart.CartItems == null ? new List<CartItem>() : Cart.CartItems;
+
+			App.Container!.GetInstance<AppDbContext>().SaveChanges();
+
+			App.Container!.GetInstance<CartPageView>().CartView.ItemsSource = Cart.CartItems == null ? new List<CartItem>() : Cart.CartItems;
 
 			App.Container!.GetInstance<CartPageView>().CartView.Items.Refresh();
 		}

@@ -164,22 +164,26 @@
              Foreground="{DynamicResource ThemeF}"
              Background="{DynamicResource ThemeB}"
              Command="{Binding ProfilePageCommand}" 
-             CommandParameter="{Binding ElementName=DashboardPage}"
              Margin="10"/>
 
                 <Button Content="Cart"
              Margin="10"
              Foreground="{DynamicResource ThemeF}"
              Background="{DynamicResource ThemeB}"
-             Command="{Binding CartPageCommand}" 
-             CommandParameter="{Binding ElementName=DashboardPage}"/>
+             Command="{Binding CartPageCommand}" />
 
                 <Button Content="Back"
              Margin="10"
              Foreground="{DynamicResource ThemeF}"
              Background="{DynamicResource ThemeB}"
-             Command="{Binding BackCommand}" 
-             CommandParameter="{Binding ElementName=DashboardPage}"/>
+             Command="{Binding BackCommand}" />
+
+
+                <Button Content="LogOut"
+             Margin="10"
+             Foreground="{DynamicResource ThemeF}"
+             Background="{DynamicResource ThemeB}"
+             Command="{Binding LogOutCommand}" />
 
             </StackPanel>
 

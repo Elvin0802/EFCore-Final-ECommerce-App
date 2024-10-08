@@ -9,6 +9,7 @@
 		Title="E-Commerce App" 
 		Height="800" 
 		Width="1200"
+                  WindowStartupLocation="CenterScreen"
 		ShowsNavigationUI="False">
 
 	<NavigationWindow.Content>

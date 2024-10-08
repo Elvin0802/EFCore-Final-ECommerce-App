@@ -12,9 +12,9 @@ public class AllCategoriesPageViewModel : BaseViewModel
 	{
 		AddNewCategorieCommand = new RelayCommand<object>(AddNewCategorieCommandExecute);
 		RemoveCategorieCommand = new RelayCommand<object>(RemoveCategorieCommandExecute);
+		BackCommand = new RelayCommand<object>(BackCommandExecute);
 
 		RefreshListView();
-
 	}
 
 	public ICommand AddNewCategorieCommand { get; set; }

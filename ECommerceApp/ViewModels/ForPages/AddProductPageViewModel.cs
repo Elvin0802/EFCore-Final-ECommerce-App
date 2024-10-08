@@ -24,6 +24,7 @@ public class AddProductPageViewModel : BaseViewModel
 
 		TakeProductImageCommand = new RelayCommand<object>(TakeProductImageExecute);
 		CompleteCommand = new RelayCommand<object>(CompleteCommandExecute);
+		CancelCommand = new RelayCommand<object>(CancelCommandExecute);
 
 		RefreshPage();
 	}
@@ -79,6 +80,16 @@ public class AddProductPageViewModel : BaseViewModel
 
 		}
 		catch { MessageBox.Show("Error in Complete Command."); }
+	}
+	public ICommand CancelCommand { get; set; }
+	private void CancelCommandExecute(object? obj)
+	{
+		try
+		{
+			RefreshPage();
+			BackCommandExecute(obj);
+		}
+		catch { MessageBox.Show("Error in Cancel Command."); }
 	}
 
 	public void RefreshPage()

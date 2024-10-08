@@ -30,7 +30,6 @@ public class AppDbContext : DbContext
 		{
 			u.HasKey(u => u.UserId);
 			u.Property(u => u.UserId).ValueGeneratedOnAdd().IsRequired();
-			u.Property(u => u.Username).IsRequired().HasMaxLength(50);
 			u.Property(u => u.Email).IsRequired().HasMaxLength(100);
 			u.Property(u => u.PasswordHash).IsRequired().HasMaxLength(255);
 			u.Property(u => u.Role).IsRequired();
@@ -38,6 +37,7 @@ public class AppDbContext : DbContext
 			u.Property(u => u.LastName).IsRequired().HasMaxLength(50);
 			u.Property(u => u.PhoneNumber).IsRequired().HasMaxLength(15);
 			u.Property(u => u.Address).IsRequired().HasMaxLength(200);
+
 
 			// One-to-many relationship: User - Orders
 			u.HasMany(u => u.Orders)
@@ -51,6 +51,9 @@ public class AppDbContext : DbContext
 			 .HasForeignKey<Cart>(c => c.UserId)
 			 .OnDelete(DeleteBehavior.Cascade);
 		});
+
+		modelBuilder.Entity<User>().HasIndex(p => p.Email).IsUnique();
+
 
 		// Cart entity configuration
 		modelBuilder.Entity<Cart>(c =>
@@ -97,6 +100,8 @@ public class AppDbContext : DbContext
 			 .HasForeignKey(p => p.CategoryId)
 			 .OnDelete(DeleteBehavior.Cascade);
 		});
+
+		modelBuilder.Entity<Category>().HasIndex(p => p.Name).IsUnique();
 
 		// Product entity configuration
 		modelBuilder.Entity<Product>(p =>

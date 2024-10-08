@@ -6,15 +6,116 @@
       xmlns:local="clr-namespace:ECommerceApp.Views.Pages"
       mc:Ignorable="d" 
       
+      Name="ProfilePage"
       Height="auto" 
       Width="auto"
       >
 
     <Grid>
-        <TextBlock Text="Profile Page" 
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="45" Foreground="Black"/>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        
+        
+        <StackPanel Grid.Column="0"
+                    Margin="20">
+
+
+            <StackPanel>
+                <TextBlock Text="FirstName" 
+                           FontSize="14" 
+                           Foreground="#555" />
+                <TextBox Width="200" 
+                         Height="30" 
+                         BorderBrush="#ccc"
+                         BorderThickness="1"  
+                         Padding="2"
+                         Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="LastName" 
+                           FontSize="14" 
+                           Foreground="#555" />
+                <TextBox Width="200" 
+                         Height="30" 
+                         BorderBrush="#ccc"
+                         BorderThickness="1"  
+                         Padding="2"
+                         Text="{Binding User.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="Phone Number" 
+                           FontSize="14" 
+                           Foreground="#555" />
+                <TextBox Width="200" 
+                         Height="30" 
+                         BorderBrush="#ccc"
+                         BorderThickness="1"  
+                         Padding="2"
+                         Text="{Binding User.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="Address" 
+                           FontSize="14" 
+                           Foreground="#555" />
+                <TextBox Width="200" 
+                         Height="30" 
+                         BorderBrush="#ccc"
+                         BorderThickness="1"  
+                         Padding="2"
+                         Text="{Binding User.Address, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="Email" 
+                           FontSize="14" 
+                           Foreground="#555" />
+                <TextBox Width="200" 
+                         Height="30" 
+                         BorderBrush="#ccc"
+                         BorderThickness="1"  
+                         Padding="2"
+                         Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="Password" 
+                           FontSize="14" 
+                           Foreground="#555" />
+                <TextBox Width="200" 
+                         Height="30" 
+                         BorderBrush="#ccc"
+                         BorderThickness="1"  
+                         Padding="2"
+                         Text="{Binding User.PasswordHash, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+        </StackPanel>
+
+
+
+        <StackPanel Grid.Column="1"
+                    Margin="10">
+            
+            <Button Content="My Orders" Margin="10 80 10 10"
+                    Width="100"/>
+            
+            <Button Content="My Cart" Margin="10"
+                    Width="100"/>
+            
+            <Button Content="Save Changes" Margin="10"
+                    Width="100"/>
+            
+            <Button Content="Log Out" Margin="10"
+                    Command="{Binding BackCommand}"
+                    CommandParameter="{Binding ElementName=ProfilePage}"
+                    Width="100"/>
+
+        </StackPanel>
     </Grid>
 </Page>

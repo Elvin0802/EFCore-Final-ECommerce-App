@@ -64,11 +64,8 @@
 
         <!-- Third Row: Username, Email, Phone Number -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="0,0,0,10" >
-            <StackPanel>
-                <TextBlock Text="Username" FontSize="14" Foreground="#555" />
-                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5" 
-                         Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            </StackPanel>
+          
+            
             <StackPanel>
                 <TextBlock Text="Email" FontSize="14" Foreground="#555" />
                 <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5"
@@ -85,13 +82,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3" Margin="0,0,0,20" >
             <StackPanel>
                 <TextBlock Text="Password" FontSize="14" Foreground="#555" />
-                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5" 
-                             Text="{Binding User.PasswordHash, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Re-enter Password" FontSize="14" Foreground="#555" />
-                <TextBox Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5" 
-                         Text="{Binding User.PasswordHash, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <PasswordBox x:Name="PasswordB" Width="200" Height="35" BorderBrush="#ccc" BorderThickness="1"  Padding="5" />
             </StackPanel>
             <StackPanel>
                 <TextBlock Text="Email Auth Code" FontSize="14" Foreground="#555" />

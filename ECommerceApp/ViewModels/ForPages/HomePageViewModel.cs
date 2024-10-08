@@ -36,6 +36,7 @@ public class HomePageViewModel : BaseViewModel
 		BackCommand = new RelayCommand<object>(BackCommandExecute);
 		CartPageCommand = new RelayCommand<object>(CartPageCommandExecute);
 		ProfilePageCommand = new RelayCommand<object>(ProfilePageCommandExecute);
+		LogOutCommand = new RelayCommand<object>(LogOutCommandExecute);
 
 		//u1 = new User()
 		//{
@@ -154,7 +155,7 @@ public class HomePageViewModel : BaseViewModel
 			var cart = App.Container!.GetInstance<CartPageView>();
 
 			var vm = App.Container.GetInstance<CartPageViewModel>();
-			vm.FirstLoad();
+			vm.Load();
 
 			cart.DataContext = vm;
 
@@ -177,10 +178,17 @@ public class HomePageViewModel : BaseViewModel
 	{
 		try
 		{
+			var p = App.Container.GetInstance<ProfilePageView>();
+			var vm = App.Container.GetInstance<ProfilePageViewModel>();
+
+			vm.User = u1;
+
+			p.DataContext = vm;
+
 			App.Container!
 			.GetInstance<MainWindowView>()
 			.MainContentFrame
-			.Navigate(App.Container.GetInstance<ProfilePageView>());
+			.Navigate(p);
 		}
 		catch
 		{
@@ -206,6 +214,8 @@ public class HomePageViewModel : BaseViewModel
 	public void AddCommandExecute(object? obj)
 	{
 		Product? SelectedProduct = obj as Product;
+
+		App.Container.GetInstance<CartPageViewModel>().Load();
 
 		var ci = u1.Cart.CartItems.ToList().Find(c => c.Product.ProductId == SelectedProduct!.ProductId);
 
@@ -247,6 +257,28 @@ public class HomePageViewModel : BaseViewModel
 			win.DataContext = dc;
 
 			win.ShowDialog();
+		}
+		catch
+		{
+			MessageBox.Show("Error in Show Command.");
+		}
+
+
+	}
+
+	public ICommand LogOutCommand { get; set; }
+
+	public void LogOutCommandExecute(object? obj)
+	{
+		try
+		{
+
+			u1 = null;
+
+			var p = App.Container!.GetInstance<LoginPageView>();
+			p.DataContext = App.Container!.GetInstance<LoginPageViewModel>();
+
+			this.StartLoadingAnimation(4, p);
 		}
 		catch
 		{

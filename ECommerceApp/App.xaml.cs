@@ -1,6 +1,7 @@
 ﻿using ECommerceApp.Models.EFCore;
 using ECommerceApp.ViewModels.ForPages;
 using ECommerceApp.ViewModels.ForWindows;
+using ECommerceApp.Views.Animations;
 using ECommerceApp.Views.Pages;
 using ECommerceApp.Views.Windows;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,9 @@ public partial class App : Application
 		RegisterOfViews();
 		RegisterOfViewModels();
 
+		LoadAppDb();
+		RefreshViewModels();
+
 		var Window = Container!.GetInstance<MainWindowView>();
 		var MainPage = Container!.GetInstance<LoginPageView>();
 
@@ -34,10 +38,7 @@ public partial class App : Application
 
 		Window.MainContentFrame.Navigate(MainPage);
 
-		RefreshAppDb();
-
 		Window.ShowDialog();
-
 
 		//connStr = App.Configuration!.GetConnectionString("DefaultConnection");
 	}
@@ -77,6 +78,8 @@ public partial class App : Application
 		Container?.RegisterSingleton<AddProductPageView>();
 		Container?.RegisterSingleton<AllCategoriesPageView>();
 
+		Container?.RegisterSingleton<LoadingAnimationPageView>();
+
 
 	}
 	public void RegisterOfViewModels()
@@ -102,7 +105,7 @@ public partial class App : Application
 
 	}
 
-	public void RefreshAppDb()
+	public void LoadAppDb()
 	{
 		var db = Container!.GetInstance<AppDbContext>();
 
@@ -115,12 +118,14 @@ public partial class App : Application
 		db.Orders.Load();
 		db.OrderItems.Load();
 		db.Payments.Load();
+	}
 
-		db.SaveChanges();
+	public void RefreshViewModels()
+	{
+		var db = Container!.GetInstance<AppDbContext>();
 
 		Container!.GetInstance<HomePageViewModel>().Ps = db.Products.ToList();
 		Container!.GetInstance<AllProductsPageViewModel>().Ps = db.Products.ToList();
-
 	}
 
 }

@@ -40,6 +40,13 @@
                     Margin="10"
                     Height="40"/>
             
+            <Button Content="Back"
+                    Command="{Binding BackCommand}"
+                    CommandParameter="{Binding ElementName=AllCategoriesPage}"
+                    Width="200"
+                    Margin="10"
+                    Height="40"/>
+            
         </StackPanel>
         
         <StackPanel Orientation="Horizontal"

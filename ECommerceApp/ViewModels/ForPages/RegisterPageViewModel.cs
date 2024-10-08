@@ -48,6 +48,13 @@ public class RegisterPageViewModel : BaseViewModel
 			return;
 		}
 
+		if (User is null)
+		{
+			MessageBox.Show("Please, enter data of new user.", "Register Info", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			return;
+		}
+		User.PasswordHash = App.Container.GetInstance<RegisterPageView>().PasswordB.Password;
+
 		var db = App.Container!.GetInstance<AppDbContext>();
 
 		db.Users.Load();

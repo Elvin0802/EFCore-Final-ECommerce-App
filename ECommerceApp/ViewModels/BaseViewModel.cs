@@ -1,4 +1,6 @@
 ﻿using ECommerceApp.Services.Additional;
+using ECommerceApp.Views.Animations;
+using ECommerceApp.Views.Windows;
 using Microsoft.Win32;
 using System.IO;
 using System.Windows;
@@ -76,4 +78,14 @@ public abstract class BaseViewModel : NotifyService
 			return null;
 		}
 	}
+
+
+	public void StartLoadingAnimation(int second, Page page)
+	{
+		var window = App.Container!.GetInstance<MainWindowView>();
+		var animationPage = App.Container!.GetInstance<LoadingAnimationPageView>();
+		animationPage.Page = page;
+		window.MainContentFrame.Navigate(animationPage);
+	}
+
 }

@@ -15,12 +15,23 @@
     <Grid>
 
         <StackPanel>
-            <Button Content="Back"
+            <StackPanel Orientation="Horizontal">
+
+                <Button Content="Back"
                     Width="200"
                     FontSize="17"
                     Margin="10"
                     Command="{Binding BackCommand}"
                     CommandParameter="{Binding ElementName=CartPage}"/>
+
+
+                <Button Content="Complete Order"
+                    Width="200"
+                    FontSize="17"
+                    Margin="10"
+                    Command="{Binding BackCommand}"
+                    CommandParameter="{Binding ElementName=CartPage}"/>
+            </StackPanel>
 
             <ListView x:Name="CartView"
                       Margin="30"
@@ -81,23 +92,6 @@
                             UpdateSourceTrigger=PropertyChanged}">
                             <TextBlock Text="Total Price" Background="{DynamicResource ThemeB}" 
                                        Foreground="{DynamicResource ThemeF}"/>
-                        </GridViewColumn>
-
-                        <GridViewColumn Width="140" >
-                            <TextBlock Text="Rating" Background="{DynamicResource ThemeB}" 
-                                       Foreground="{DynamicResource ThemeF}"/>
-
-
-                            <GridViewColumn.CellTemplate >
-                                <DataTemplate>
-                                    <materialDesign:RatingBar
-                                  x:Name="ReadOnlyRatingBar"
-                                  Value="{Binding Product.RatingAvg}"
-                                  IsReadOnly="True" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-
-
                         </GridViewColumn>
 
                         <GridViewColumn Width="140" >

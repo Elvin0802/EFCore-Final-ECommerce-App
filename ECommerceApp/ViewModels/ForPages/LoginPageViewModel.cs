@@ -29,13 +29,12 @@ public class LoginPageViewModel : BaseViewModel
 		db.Carts.Load();
 		db.Users.Load();
 
-		var u = App.Container.GetInstance<LoginPageView>().EmailText.Text;
+		var e = App.Container.GetInstance<LoginPageView>().EmailText.Text;
 		var p = App.Container.GetInstance<LoginPageView>().PasswordText.Text;
 
 		foreach (var item in db.Users.ToList())
 		{
-			//if (item.Username == u && item.PasswordHash == p)
-			if ("q" == u && "q" == p)
+			if (item.Email == e && item.PasswordHash == p)
 			{
 				var page = obj as Page;
 
@@ -44,9 +43,11 @@ public class LoginPageViewModel : BaseViewModel
 				var vm = App.Container.GetInstance<HomePageViewModel>();
 				vm.u1 = item;
 
+				App.Container.GetInstance<ProfilePageViewModel>().User = item;
+
 				home.DataContext = vm;
 
-				page?.NavigationService.Navigate(home);
+				this.StartLoadingAnimation(4, home);
 
 				break;
 			}
